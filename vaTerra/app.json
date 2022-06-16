@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      ["expo-camera"],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/96icongrey.png",
+          "color": "#ffffff"
+        }
+      ]
+    ],
+    "name": "com.jmarc.vaterra",
+    "slug": "vaTerra",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "notification": {
+      "icon": "./assets/96icongrey.png"
+    },
+    "icon": "./assets/96Icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/vaTerra.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/96icongrey.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA"
+      ],
+      "package": "com.jmarc.vaterra"
+    },
+    "web": {
+      "favicon": "./assets/vaTerrahoja.png"
+    }
+  }
+}
