@@ -1,9 +1,10 @@
 const Mongoose = require('mongoose');
-const object = require('../credentials');
+const dotenv = require('dotenv');
+dotenv.config();
+// const object = require('../credentials');
 
-Mongoose.connect(
-  `mongodb+srv://${object.mongoname}:${object.mongopassword}@db-codeworks.rl4fowb.mongodb.net/vaTerra`
-);
+console.log(process.env);
+Mongoose.connect(process.env.MONGO_CONNECT);
 
 const plantSchema = new Mongoose.Schema({
   id: Number,
