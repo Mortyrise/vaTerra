@@ -1,9 +1,10 @@
 const Mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
 // const object = require('../credentials');
 
-Mongoose.connect(
-  `mongodb+srv://arod90:spitfire@cluster0.oiuln.mongodb.net/test`
-);
+console.log(process.env);
+Mongoose.connect(process.env.MONGO_CONNECT);
 
 const plantSchema = new Mongoose.Schema({
   id: Number,

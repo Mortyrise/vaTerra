@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "70447457043",
+    "project_id": "vaterra-legacy",
+    "storage_bucket": "vaterra-legacy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70447457043:android:41f66c357153e3b7fab0e6",
+        "android_client_info": {
+          "package_name": "com.legacyProject.vaTerra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70447457043-6gian0lh4eu7rjj0mp4j3c1vldtjevj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOPS7FVzcr19Ga0uu5L0FOHBrV2nrpoEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70447457043-6gian0lh4eu7rjj0mp4j3c1vldtjevj2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
