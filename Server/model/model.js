@@ -1,8 +1,8 @@
 const Mongoose = require('mongoose');
-const object = require('../credentials');
+// const object = require('../credentials');
 
 Mongoose.connect(
-  `mongodb+srv://${object.mongoname}:${object.mongopassword}@db-codeworks.rl4fowb.mongodb.net/vaTerra`
+  `mongodb+srv://arod90:spitfire@cluster0.oiuln.mongodb.net/test`
 );
 
 const plantSchema = new Mongoose.Schema({
