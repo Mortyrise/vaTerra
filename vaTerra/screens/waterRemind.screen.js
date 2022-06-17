@@ -8,10 +8,10 @@ function WaterRemind() {
 
   const getData = async () => {
     try {
-      const data = await getUser(8);
+      const data = await getUser(1);
       console.log('getData', data);
       //could be undefined if no plants
-      if (data.plants) {
+      if (data.plantsArray) {
         setPlants(data.plantsArray);
       }
     } catch (error) {
@@ -29,8 +29,14 @@ function WaterRemind() {
         <Text style={styles.text}>Watering Reminders</Text>
       </View>
       <View style={{ marginTop: 40 }}>
-        {plants.map((element, index) => (
-          <IntervalSliders plant={element} key={index} />
+        {plants.map((plant, index) => (
+          <View>
+            <Text key={index} style={styles.text}>
+              {' '}
+              {plant.latin}
+            </Text>
+            <IntervalSliders plant={plant} key={index * 10} />
+          </View>
         ))}
       </View>
     </View>
