@@ -36,6 +36,7 @@ const plantSchema = new Mongoose.Schema({
 
 const userSchema = new Mongoose.Schema({
   userId: { type: Number },
+  userName: { type: String },
   userEmail: { type: String },
   userPassword: { type: String },
   plantsArray: { type: [plantSchema] },
