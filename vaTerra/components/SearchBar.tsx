@@ -1,12 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-  VariantsBox,
-} from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { getPlants } from '../utils/service';
@@ -14,14 +6,14 @@ import SelectDropdown from 'react-native-select-dropdown';
 
 const PlantSearchBar = ({ setPlantObject }) => {
   const [search, setSearch] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState([]);
-  const [allPlants, setAllPlants] = useState([]);
+  const [filteredPlants, setFilteredPlants] = useState([]);
+  const [allPlants, setAllPlants] = useState(null);
   const [selectedPlant, setSelectedPlant] = useState(null);
 
   const data = async () => {
     try {
       const filteredData = await getPlants();
-      setFilteredDataSource(filteredData);
+      setFilteredPlants(filteredData);
       setAllPlants(filteredData);
     } catch (error) {
       console.log('ErrorData:', error);
@@ -30,6 +22,7 @@ const PlantSearchBar = ({ setPlantObject }) => {
   useEffect(() => {
     data();
   }, []);
+
   const searchFilterFunction = (textInput) => {
     if (textInput) {
       const newData = allPlants.filter(function (item) {
@@ -37,45 +30,49 @@ const PlantSearchBar = ({ setPlantObject }) => {
         return itemData.indexOf(textInput.toLowerCase()) > -1;
       });
       // console.log('filteredData', newData);
-      setFilteredDataSource(newData);
+      setFilteredPlants(newData);
       setSearch(textInput);
     } else {
-      setFilteredDataSource(allPlants);
+      setFilteredPlants(allPlants);
       setSearch(textInput);
     }
   };
 
   return (
     <View style={styles.searchBarContainer}>
-      <TextInput
-        round
-        style={styles.searchBar}
-        onChangeText={(text) => searchFilterFunction(text)}
-        onClear={(text) => searchFilterFunction('')}
-        placeholder="Search plant by it's common name"
-        value={search}
-      />
-      <SelectDropdown
-        data={filteredDataSource}
-        onSelect={(selectedItem, index) => {
-          setPlantObject(selectedItem);
-        }}
-        defaultButtonText={'Search plant'}
-        buttonTextAfterSelection={(selectedItem, index) => {
-          setSelectedPlant(selectedItem);
-          return 'Search Plant';
-        }}
-        rowTextForSelection={(item, index) => {
-          return item.common[0];
-        }}
-        // dropdownBackgroundColor="#009c97"
-        style={styles.searchButton}
-      />
-      {selectedPlant && (
-        <View style={{ marginTop: 10 }}>
-          <Text style={styles.plantText}>Plant selected: {selectedPlant.common[0]}</Text>
-          <Text style={styles.plantText}>Family: {selectedPlant.family}</Text>
-          <Text style={styles.plantText}>Latin name: {selectedPlant.latin}</Text>
+      {!allPlants ? (
+        <Text>Loading...</Text>
+      ) : (
+        <View>
+          <TextInput
+            style={styles.searchBar}
+            onChangeText={(text) => searchFilterFunction(text)}
+            placeholder="Search plant by it's common name"
+            value={search}
+          />
+          <SelectDropdown
+            data={filteredPlants}
+            onSelect={(selectedItem) => {
+              setPlantObject(selectedItem);
+            }}
+            defaultButtonText={`Select plant (${filteredPlants.length})`}
+            buttonTextAfterSelection={(selectedItem) => {
+              setSelectedPlant(selectedItem);
+              return `Selected plant:`;
+            }}
+            rowTextForSelection={(item) => {
+              return item.common[0];
+            }}
+            // dropdownBackgroundColor="#009c97"
+            // style={styles.searchButton}
+          />
+          {selectedPlant && (
+            <View style={{ marginTop: 10 }}>
+              <Text style={styles.plantText}>Plant selected: {selectedPlant.common[0]}</Text>
+              <Text style={styles.plantText}>Family: {selectedPlant.family}</Text>
+              <Text style={styles.plantText}>Latin name: {selectedPlant.latin}</Text>
+            </View>
+          )}
         </View>
       )}
     </View>
