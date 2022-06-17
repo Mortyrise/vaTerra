@@ -1,7 +1,8 @@
-const { Plant, User } = require('../model/model');
+import { Request, Response } from 'express';
+import { Plant, User } from '../model/model';
 // const sendPushNotification = require('../utilities/pushNotifications');
 
-const findBySpecies = async function (req, res) {
+const findBySpecies = async function (req: Request, res: Response) {
   try {
     console.log(req.body, 'reqbody');
     const onePlant = await Plant.find({ common: { $in: [req.body.common] } });
@@ -13,13 +14,13 @@ const findBySpecies = async function (req, res) {
   }
 };
 
-const findAllPlants = async function (req, res) {
+const findAllPlants = async function (req: Request, res: Response) {
   const allPlants = await Plant.find();
   res.status(200);
   res.send(allPlants);
 };
 
-const findPlantById = async function (req, res) {
+const findPlantById = async function (req: Request, res: Response) {
   try {
     const plantToAdd = await Plant.findById(req.body.id);
     res.status(200);
@@ -29,7 +30,7 @@ const findPlantById = async function (req, res) {
   }
 };
 
-const findPlantByLatin = async function (req, res) {
+const findPlantByLatin = async function (req: Request, res: Response) {
   try {
     const plantToAdd = await Plant.findById(req.body.latin);
     res.status(200);
@@ -39,7 +40,7 @@ const findPlantByLatin = async function (req, res) {
   }
 };
 
-const addUser = async function (req, res) {
+const addUser = async function (req: Request, res: Response) {
   try {
     const userAdded = await User.create(req.body);
     res.status(201);
@@ -50,7 +51,7 @@ const addUser = async function (req, res) {
   }
 };
 
-const removeUser = async function (req, res) {
+const removeUser = async function (req: Request, res: Response) {
   try {
     await User.findByIdAndDelete(req.body.userId);
     res.status(204);
@@ -60,7 +61,7 @@ const removeUser = async function (req, res) {
   }
 };
 
-const findUser = async function (req, res) {
+const findUser = async function (req: Request, res: Response) {
   try {
     const userAdded = await User.findOne({ userId: req.params.id });
     res.status(201);
@@ -71,7 +72,7 @@ const findUser = async function (req, res) {
   }
 };
 
-const findAllUsers = async function (req, res) {
+const findAllUsers = async function (req: Request, res: Response) {
   try {
     const users = await User.find();
     res.status(200);
@@ -82,7 +83,7 @@ const findAllUsers = async function (req, res) {
   }
 };
 
-const addPlantByUser = async function (req, res) {
+const addPlantByUser = async function (req: Request, res: Response) {
   try {
     const userToUpdate = await User.findOne({ userId: 8 });
     const plantToAdd = req.body;
@@ -104,7 +105,7 @@ const addPlantByUser = async function (req, res) {
   }
 };
 
-const removePlantByUser = async function (req, res) {
+const removePlantByUser = async function (req: Request, res: Response) {
   try {
     await User.findByIdAndUpdate(
       req.params.id,
@@ -124,18 +125,18 @@ const removePlantByUser = async function (req, res) {
   }
 };
 
-const increaseReminder = async function (req, res) {
+const increaseReminder = async function (req: Request, res: Response) {
   try {
     let plant = req.body.plant;
-    let array = [];
+    let array: [] = [];
     let reminderInterval = plant.wateringReminderInterval;
     let find = await User.findById(req.body.user._id);
     for (let el of find.plantsArray) {
       if (el.id === plant.id) {
         el.nextReminderDate = Date.now() + reminderInterval * 1000 * 3600 * 24;
-        array.push(el);
+        array.push(el as never);
       } else {
-        array.push(el);
+        array.push(el as never);
       }
     }
     let user = await User.findByIdAndUpdate(
@@ -156,18 +157,18 @@ const increaseReminder = async function (req, res) {
   }
 };
 
-const updateReminder = async function (req, res) {
+const updateReminder = async function (req: Request, res: Response) {
   try {
     let plant = req.body.plant;
-    let array = [];
+    let array: [] = [];
     let find = await User.findById(req.body.user._id);
 
     for (let el of find.plantsArray) {
       if (el.id === plant.id) {
         el.wateringReminderInterval = req.body.newInterval;
-        array.push(el);
+        array.push(el as never);
       } else {
-        array.push(el);
+        array.push(el as never);
       }
     }
     let user = await User.findByIdAndUpdate(
@@ -188,7 +189,7 @@ const updateReminder = async function (req, res) {
   }
 };
 
-module.exports = {
+export default {
   findBySpecies,
   addPlantByUser,
   removePlantByUser,
