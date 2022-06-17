@@ -4,15 +4,11 @@ import {
   View,
   StyleSheet,
   Image,
-  Platform,
   useWindowDimensions,
 } from 'react-native';
 import Constants from 'expo-constants';
-// import firebase from './config/firebase';
+
 import { AntDesign, Feather } from '@expo/vector-icons';
-import uplodImageFromDevice from '../utils/uploadImageFromDevice';
-import getBlobFromUri from '../utils/fetchUploadableImageBinaryData';
-import manageFileUpload from '../utils/uploadBinaryDataToFirebaseStorage';
 
 const ImagePicking = (props) => {
   const [imgURI, setImageURI] = React.useState(null);
@@ -23,14 +19,6 @@ const ImagePicking = (props) => {
 
   const [error, setError] = React.useState(null);
   const { width } = useWindowDimensions();
-
-  const handleLocalImageUpload = async () => {
-    const fileURI = await uplodImageFromDevice();
-
-    if (fileURI) {
-      setImageURI(fileURI);
-    }
-  };
 
   const onStart = () => {
     setIsUploading(true);
@@ -49,19 +37,10 @@ const ImagePicking = (props) => {
     setError(error);
     setIsUploading(false);
   };
-  const handleCloudImageUpload = async () => {
-    if (!imgURI) return;
-
-    let fileToUpload = null;
-
-    const blob = await getBlobFromUri(imgURI);
-
-    await manageFileUpload(blob, { onStart, onProgress, onComplete, onFail });
-  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Attach and upload image</Text>
+    <View style={styles}>
+      <Text style={styles}>Attach and upload image</Text>
       {Boolean(imgURI) && (
         <View>
           <Image
@@ -69,32 +48,6 @@ const ImagePicking = (props) => {
             resizeMode="contain"
             style={{ width, height: width }}
           />
-        </View>
-      )}
-
-      {!isUploading && (
-        <View style={styles.row}>
-          <AntDesign
-            name="addfile"
-            size={36}
-            color={imgURI ? 'green' : 'black'}
-            onPress={handleLocalImageUpload}
-          />
-
-          {Boolean(imgURI) && (
-            <Feather
-              name="upload-cloud"
-              size={36}
-              color="black"
-              onPress={handleCloudImageUpload}
-            />
-          )}
-        </View>
-      )}
-
-      {isUploading && (
-        <View style={styles.uploadProgressContainer}>
-          <Text> Upload {progress} of 100% </Text>
         </View>
       )}
 

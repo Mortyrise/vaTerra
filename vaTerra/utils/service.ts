@@ -1,4 +1,6 @@
 const baseUrl = 'https://5ca3-45-130-134-153.eu.ngrok.io/';
+import Plant from '../Types/Plants';
+import User from '../Types/User';
 
 //Get user plants
 export const getPlants = async () => {
@@ -11,7 +13,7 @@ export const getPlants = async () => {
 };
 
 //Get user
-export const getUser = async (id) => {
+export const getUser = async (id: number) => {
   try {
     const result = await fetch(baseUrl + 'user/' + id);
     return await result.json();
@@ -21,7 +23,7 @@ export const getUser = async (id) => {
 };
 
 //Post user
-export const addUser = async (user) => {
+export const addUser = async (user: User) => {
   try {
     const data = await fetch(baseUrl + 'user', {
       method: 'POST',
@@ -37,7 +39,7 @@ export const addUser = async (user) => {
 };
 
 //Delete user
-export const removeUser = async (user) => {
+export const removeUser = async (user: User) => {
   try {
     const res = await fetch(baseUrl + `user/${user.userId}`, {
       method: 'DELETE',
@@ -49,7 +51,7 @@ export const removeUser = async (user) => {
 };
 
 //Add Plant to the users plantsArray, "Put"
-export const addPlantToUser = async (plantObject) => {
+export const addPlantToUser = async (plantObject: Plant) => {
   try {
     const plant = await fetch(baseUrl + 'user/plant', {
       method: 'PUT',
@@ -64,7 +66,11 @@ export const addPlantToUser = async (plantObject) => {
   }
 };
 //Find User, and update it's plants reminders
-export const updateReminder = async (user, plant, newInterval) => {
+export const updateReminder = async (
+  user: User,
+  plant: Plant,
+  newInterval: number
+) => {
   try {
     const userToUpdate = await fetch(baseUrl + 'user/plant/interval', {
       method: 'PUT',
