@@ -15,14 +15,14 @@ import SelectDropdown from 'react-native-select-dropdown';
 const PlantSearchBar = ({ setPlantObject }) => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
-  const [masterDataSource, setMasterDataSource] = useState([]);
+  const [allPlants, setAllPlants] = useState([]);
   const [selectedPlant, setSelectedPlant] = useState(null);
 
   const data = async () => {
     try {
       const filteredData = await getPlants();
       setFilteredDataSource(filteredData);
-      setMasterDataSource(filteredData);
+      setAllPlants(filteredData);
     } catch (error) {
       console.log('ErrorData:', error);
     }
@@ -30,21 +30,18 @@ const PlantSearchBar = ({ setPlantObject }) => {
   useEffect(() => {
     data();
   }, []);
-  const searchFilterFunction = (text) => {
-    // console.log('text', text);
-    if (text) {
-      // console.log(masterDataSource);
-      const newData = masterDataSource.filter(function (item) {
+  const searchFilterFunction = (textInput) => {
+    if (textInput) {
+      const newData = allPlants.filter(function (item) {
         const itemData = item.common[0] ? item.common[0].toLowerCase() : ''.toLowerCase();
-        const textData = text.toLowerCase();
-        return itemData.indexOf(textData) > -1;
+        return itemData.indexOf(textInput.toLowerCase()) > -1;
       });
       // console.log('filteredData', newData);
       setFilteredDataSource(newData);
-      setSearch(text);
+      setSearch(textInput);
     } else {
-      setFilteredDataSource(masterDataSource);
-      setSearch(text);
+      setFilteredDataSource(allPlants);
+      setSearch(textInput);
     }
   };
 
