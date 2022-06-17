@@ -1,12 +1,7 @@
 // Let's check if we need this
 // import type {StackNavigationProp} from '@react-navigation/stack';
 
-export type Tempmax = {
-  celsius: number;
-  fahrenheit: number;
-};
-
-export type Tempmin = {
+export type Temp = {
   celsius: number;
   fahrenheit: number;
 };
@@ -19,8 +14,8 @@ export type Plant = {
   category: string;
   origin: string;
   climate: string;
-  tempmax: Tempmax;
-  tempmin: Tempmin;
+  tempmax: Temp;
+  tempmin: Temp;
   ideallight: string;
   toleratedlight: string;
   watering: string;
@@ -28,3 +23,5 @@ export type Plant = {
   diseases: string;
   use: string[];
 };
+
+export default Plant;
