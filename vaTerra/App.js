@@ -71,7 +71,13 @@ export default function App() {
             component={AddPlant}
             options={{
               tabBarIcon: () => {
-                return <MaterialCommunityIcons name="plus" size={30} color={'rgb(243,242,238)'} />;
+                return (
+                  <MaterialCommunityIcons
+                    name="plus"
+                    size={30}
+                    color={'rgb(243,242,238)'}
+                  />
+                );
               },
             }}
           />
@@ -80,7 +86,13 @@ export default function App() {
             component={WaterReminder}
             options={{
               tabBarIcon: () => {
-                return <MaterialCommunityIcons name="water" size={28} color={'rgb(243,242,238)'} />;
+                return (
+                  <MaterialCommunityIcons
+                    name="water"
+                    size={28}
+                    color={'rgb(243,242,238)'}
+                  />
+                );
               },
             }}
           />

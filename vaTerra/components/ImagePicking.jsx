@@ -10,9 +10,6 @@ import {
 import Constants from 'expo-constants';
 // import firebase from './config/firebase';
 import { AntDesign, Feather } from '@expo/vector-icons';
-import uplodImageFromDevice from '../utils/uploadImageFromDevice';
-import getBlobFromUri from '../utils/fetchUploadableImageBinaryData';
-import manageFileUpload from '../utils/uploadBinaryDataToFirebaseStorage';
 
 const ImagePicking = (props) => {
   const [imgURI, setImageURI] = React.useState(null);
