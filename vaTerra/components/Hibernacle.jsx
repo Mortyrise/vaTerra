@@ -31,7 +31,7 @@ const Hibernacle = (props) => {
           <Text style={styles.text}>HIBERNACLE</Text>
         </View>
         <View>
-          <Text style={styles.text}>{user ? user.name : ''}</Text>
+          <Text style={styles.text}>{user ? user.userEmail : ''}</Text>
         </View>
 
         <View style={styles.hibernacleWrapper}>
