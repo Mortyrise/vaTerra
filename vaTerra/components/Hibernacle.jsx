@@ -5,18 +5,18 @@ import { useState } from 'react';
 import { getPlants, getUser } from '../utils/service';
 
 const Hibernacle = (props) => {
-  console.log('Hibernacle()');
   const [plants, setPlants] = useState([]);
   const [user, setUser] = useState(null);
 
   const getData = async () => {
     try {
-      const data = await getUser(8);
-      console.log(data);
-      setUser(data.name);
-      setPlants(data.plantsArray);
+      const data = await getUser(1);
+      console.log('GetUserData', data);
+      setUser(data);
+      console.log('UserSet:', user);
+      // setPlants(data.plantsArray);
     } catch (error) {
-      console.log(error);
+      console.log('Error get Data:', error);
     }
   };
 
@@ -30,10 +30,14 @@ const Hibernacle = (props) => {
         <View>
           <Text style={styles.text}>HIBERNACLE</Text>
         </View>
+        <View>
+          <Text style={styles.text}>{user ? user.userEmail : ''}</Text>
+        </View>
+
         <View style={styles.hibernacleWrapper}>
-          {plants.map((element, index) => (
+          {/* {plants.map((element, index) => (
             <Plant plant={element} key={index} />
-          ))}
+          ))} */}
         </View>
       </View>
     </ScrollView>

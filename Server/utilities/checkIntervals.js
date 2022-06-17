@@ -2,7 +2,7 @@ const Plant = require('../model/model');
 const User = require('../model/model');
 const sendPushNotification = require('./pushNotifications');
 const { Expo } = require('expo-server-sdk');
-const controller = require('../controller/controller');
+// const controller = require('../controller/controller');
 
 const pushNotificationAndUpdateWaterInterval = async () => {
   try {
