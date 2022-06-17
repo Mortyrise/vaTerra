@@ -2,13 +2,14 @@ import firebase from 'firebase';
 import * as Notifications from 'expo-notifications';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAwm4JhUIKnJeO4qOjXJbzRKFiLEXH1d58',
-  authDomain: 'vaterra-22740.firebaseapp.com',
-  projectId: 'vaterra-22740',
-  storageBucket: 'vaterra-22740.appspot.com',
-  messagingSenderId: '901541040609',
-  appId: '1:901541040609:web:c46076836268d4da9082a0',
+  apiKey: 'AIzaSyBFqo_qOWZbp77GDqf2Fo9nzTkHCuVTQCs',
+  authDomain: 'vaterra-legacy.firebaseapp.com',
+  projectId: 'vaterra-legacy',
+  storageBucket: 'vaterra-legacy.appspot.com',
+  messagingSenderId: '70447457043',
+  appId: '1:70447457043:web:1ab96a01c2b845e6fab0e6',
 };
+
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -26,7 +27,7 @@ const registerForPushNotificationsAsync = async function () {
     return;
   }
   token = (await Notifications.getExpoPushTokenAsync()).data;
-  console.log({ token });
+  // console.log('Token in config file:', { token });
   return token;
 };
 

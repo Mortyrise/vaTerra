@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
 import HomeScreen from './screens/home.screen';
 import AddPlant from './screens/addPlant.screen';
@@ -28,7 +28,7 @@ const registerForPushNotificationsAsync = async function () {
     return;
   }
   token = (await Notifications.getExpoPushTokenAsync()).data;
-  console.log({ token });
+  //console.log('App - token'{ token });
   return token;
 };
 
@@ -71,13 +71,7 @@ export default function App() {
             component={AddPlant}
             options={{
               tabBarIcon: () => {
-                return (
-                  <MaterialCommunityIcons
-                    name="plus"
-                    size={30}
-                    color={'rgb(243,242,238)'}
-                  />
-                );
+                return <MaterialCommunityIcons name="plus" size={30} color={'rgb(243,242,238)'} />;
               },
             }}
           />
@@ -86,13 +80,7 @@ export default function App() {
             component={WaterReminder}
             options={{
               tabBarIcon: () => {
-                return (
-                  <MaterialCommunityIcons
-                    name="water"
-                    size={28}
-                    color={'rgb(243,242,238)'}
-                  />
-                );
+                return <MaterialCommunityIcons name="water" size={28} color={'rgb(243,242,238)'} />;
               },
             }}
           />

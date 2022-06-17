@@ -1,4 +1,4 @@
-const baseUrl = 'https://73f2-45-130-134-153.eu.ngrok.io/';
+const baseUrl = 'https://5ca3-45-130-134-153.eu.ngrok.io/';
 
 //Get user plants
 export const getPlants = async () => {
@@ -6,7 +6,7 @@ export const getPlants = async () => {
     const result = await fetch(baseUrl + 'plants');
     return await result.json();
   } catch (error) {
-    console.log(error);
+    console.log('Error Service-getPlants', error);
   }
 };
 
@@ -16,7 +16,7 @@ export const getUser = async (id) => {
     const result = await fetch(baseUrl + 'user/' + id);
     return await result.json();
   } catch (error) {
-    console.log(error);
+    console.log('Error Service-getUser', error);
   }
 };
 
@@ -32,7 +32,7 @@ export const addUser = async (user) => {
     });
     return data.json();
   } catch (error) {
-    console.log(error);
+    console.log('Error Service-addUser', error);
   }
 };
 
@@ -44,7 +44,7 @@ export const removeUser = async (user) => {
     });
     return await res.json();
   } catch (error) {
-    console.log(error);
+    console.log('Error Service-delete user', error);
   }
 };
 
@@ -60,7 +60,7 @@ export const addPlantToUser = async (plantObject) => {
     });
     return plant.json();
   } catch (error) {
-    console.log(error);
+    console.log('Error Service-addPlant', error);
   }
 };
 //Find User, and update it's plants reminders
@@ -78,7 +78,7 @@ export const updateReminder = async (user, plant, newInterval) => {
       }),
     });
   } catch (error) {
-    console.log(error);
+    console.log('Error Service-updateReminder', error);
   }
 };
 

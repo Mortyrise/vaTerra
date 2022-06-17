@@ -24,24 +24,22 @@ const PlantSearchBar = ({ setPlantObject }) => {
       setFilteredDataSource(filteredData);
       setMasterDataSource(filteredData);
     } catch (error) {
-      console.log(error);
+      console.log('ErrorData:', error);
     }
   };
   useEffect(() => {
     data();
   }, []);
   const searchFilterFunction = (text) => {
-    console.log('text', text);
+    // console.log('text', text);
     if (text) {
       // console.log(masterDataSource);
       const newData = masterDataSource.filter(function (item) {
-        const itemData = item.common[0]
-          ? item.common[0].toLowerCase()
-          : ''.toLowerCase();
+        const itemData = item.common[0] ? item.common[0].toLowerCase() : ''.toLowerCase();
         const textData = text.toLowerCase();
         return itemData.indexOf(textData) > -1;
       });
-      console.log('filteredData', newData);
+      // console.log('filteredData', newData);
       setFilteredDataSource(newData);
       setSearch(text);
     } else {
@@ -78,13 +76,9 @@ const PlantSearchBar = ({ setPlantObject }) => {
       />
       {selectedPlant && (
         <View style={{ marginTop: 10 }}>
-          <Text style={styles.plantText}>
-            Plant selected: {selectedPlant.common[0]}
-          </Text>
+          <Text style={styles.plantText}>Plant selected: {selectedPlant.common[0]}</Text>
           <Text style={styles.plantText}>Family: {selectedPlant.family}</Text>
-          <Text style={styles.plantText}>
-            Latin name: {selectedPlant.latin}
-          </Text>
+          <Text style={styles.plantText}>Latin name: {selectedPlant.latin}</Text>
         </View>
       )}
     </View>
