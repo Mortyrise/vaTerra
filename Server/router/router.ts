@@ -1,6 +1,6 @@
-const Express = require('express');
-const router = Express.Router();
-const controller = require('../controller/controller');
+import express from 'express';
+const router = express.Router();
+import controller from '../controller/controller';
 
 router.get('/plants', controller.findAllPlants);
 router.get('/user/:id', controller.findUser);
@@ -12,4 +12,4 @@ router.put('/user/plant/interval', controller.updateReminder);
 router.delete('user/plant/delete/:id', controller.removePlantByUser);
 router.delete('user/:id', controller.removeUser);
 
-module.exports = router;
+export default router;
