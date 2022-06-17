@@ -4,8 +4,8 @@ import Plant from './Plant';
 import { useState } from 'react';
 import { getPlants, getUser } from '../utils/service';
 
-const Hibernacle = (props) => {
-  const [plants, setPlants] = useState([]);
+const Hibernacle = () => {
+  // const [plants, setPlants] = useState([]);
   const [user, setUser] = useState(null);
 
   const getData = async () => {

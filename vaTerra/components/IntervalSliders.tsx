@@ -3,15 +3,18 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
 import { updateReminder } from '../utils/service';
 
-const IntervalSliders = ({ plant }) => {
+const IntervalSliders = ({ plant, user }) => {
   const [waterInterval, setWaterInterval] = useState(null);
 
+  // const handleValueChange = async function () {
+  //   updateReminder(
+  //     { _id: '62a21daf09bc8c794d8b02b3', id: '8' },
+  //     plant,
+  //     waterInterval
+  //   );
+  // };
   const handleValueChange = async function () {
-    updateReminder(
-      { _id: '62a21daf09bc8c794d8b02b3', id: '8' },
-      plant,
-      waterInterval
-    );
+    updateReminder(user, plant, waterInterval);
   };
 
   return (
