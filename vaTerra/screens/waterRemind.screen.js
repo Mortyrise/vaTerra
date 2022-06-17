@@ -9,10 +9,13 @@ function WaterRemind() {
   const getData = async () => {
     try {
       const data = await getUser(8);
-      console.log(data);
-      setPlants(data.plantsArray);
+      console.log('getData', data);
+      //could be undefined if no plants
+      if (data.plants) {
+        setPlants(data.plantsArray);
+      }
     } catch (error) {
-      console.log(error);
+      console.log('Error waterRemid', error);
     }
   };
 
