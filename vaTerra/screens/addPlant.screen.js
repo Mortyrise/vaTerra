@@ -146,22 +146,20 @@ function AddPlant() {
             </Pressable>
             {
               //TODO make this look nices -> Upload and add plant in one step
-              plantImgURI && (
-                <Pressable onPress={uploadImage} style={styles.imgButton}>
-                  <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>
-                    Upload Image
-                  </Text>
-                </Pressable>
-              )
+              <Pressable onPress={uploadImage} style={styles.imgButton}>
+                <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>
+                  Upload Image
+                </Text>
+              </Pressable>
             }
           </View>
           {plantImgURI && <Image source={{ uri: plantImgURI.uri }} style={styles.plantImage} />}
         </View>
-        {plantImgURI && (
+        {
           <Pressable onPress={submitPlant} style={styles.imgButton}>
             <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>ADD PLANT</Text>
           </Pressable>
-        )}
+        }
       </View>
     </ScrollView>
   );

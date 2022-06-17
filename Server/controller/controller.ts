@@ -85,7 +85,8 @@ const findAllUsers = async function (req: Request, res: Response) {
 
 const addPlantByUser = async function (req: Request, res: Response) {
   try {
-    const userToUpdate = await User.findOne({ userId: 8 });
+    console.log('addPlantByUser', req.body);
+    const userToUpdate = await User.findOne({ userId: 1 });
     const plantToAdd = req.body;
     await User.updateOne(
       { id: userToUpdate.userId },
