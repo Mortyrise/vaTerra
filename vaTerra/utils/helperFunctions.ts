@@ -4,4 +4,4 @@ const addDaystoDate = (interval: number) => {
   return nextReminder;
 };
 
-module.exports = addDaystoDate;
+export default addDaystoDate;

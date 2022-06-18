@@ -1,5 +1,5 @@
 //Need to be something like this: 'https://e756-45-130-134-153.eu.ngrok.io/';
-const baseUrl = 'https://e756-45-130-134-153.eu.ngrok.io/';
+const baseUrl = 'https://ceeb-45-130-134-153.eu.ngrok.io/';
 import Plant from '../Types/Plants';
 import User from '../Types/User';
 
@@ -67,7 +67,11 @@ export const addPlantToUser = async (plantObject: Plant) => {
   }
 };
 //Find User, and update it's plants reminders
-export const updateReminder = async (user: User, plant: Plant, newInterval: number) => {
+export const updateReminder = async (
+  user: User,
+  plant: Plant,
+  newInterval: number
+) => {
   try {
     const userToUpdate = await fetch(baseUrl + 'user/plant/interval', {
       method: 'PUT',
