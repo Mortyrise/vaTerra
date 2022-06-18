@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import IntervalSliders from '../components/IntervalSliders';
 import { getUser } from '../utils/service';
 
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: 'Roboto',
+    fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     color: '#009c97',
     letterSpacing: 6,
   },

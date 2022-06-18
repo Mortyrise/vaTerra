@@ -1,6 +1,6 @@
 import Slider from '@react-native-community/slider';
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, Platform } from 'react-native';
 import { updateReminder } from '../utils/service';
 
 const IntervalSliders = ({ plant, user }) => {
@@ -46,7 +46,7 @@ export default IntervalSliders;
 const styles = StyleSheet.create({
   slidersContainer: { justifyContent: 'center', alignItems: 'center' },
   text: {
-    fontFamily: 'Roboto',
+    fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     fontSize: 14,
     fontWeight: '500',
     letterSpacing: 1.2,
