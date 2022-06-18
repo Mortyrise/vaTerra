@@ -58,8 +58,6 @@ export default function App() {
     checkConnection();
   }, []);
 
-  console.log('user', user);
-
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -90,7 +88,6 @@ export default function App() {
               component={!user ? Loading : AddPlant}
               options={{
                 tabBarIcon: () => {
-                  console.log('something is clicked');
                   return (
                     <MaterialCommunityIcons name="plus" size={30} color={'rgb(243,242,238)'} />
                   );

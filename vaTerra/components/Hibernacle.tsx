@@ -11,9 +11,9 @@ const Hibernacle = () => {
   const getData = async () => {
     try {
       const data = await getUser(1);
-      console.log('GetUserData', data);
+      // console.log('GetUserData', data);
       setUser(data);
-      console.log('UserSet:', user);
+      // console.log('UserSet:', user);
       // setPlants(data.plantsArray);
     } catch (error) {
       console.log('Error get Data:', error);
