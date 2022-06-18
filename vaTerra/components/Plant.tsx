@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Platform } from 'react-native';
 import React from 'react';
 
 const Plant = ({ plant }) => {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   plantText: {
     marginTop: 10,
-    fontFamily: 'Roboto',
+    fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     fontSize: 16,
     letterSpacing: 1.5,
   },

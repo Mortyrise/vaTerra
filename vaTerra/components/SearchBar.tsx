@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { getPlants } from '../utils/service';
@@ -26,7 +26,9 @@ const PlantSearchBar = ({ setPlantObject }) => {
   const searchFilterFunction = (textInput) => {
     if (textInput) {
       const newData = allPlants.filter(function (item) {
-        const itemData = item.common[0] ? item.common[0].toLowerCase() : ''.toLowerCase();
+        const itemData = item.common[0]
+          ? item.common[0].toLowerCase()
+          : ''.toLowerCase();
         return itemData.indexOf(textInput.toLowerCase()) > -1;
       });
       // console.log('filteredData', newData);
@@ -68,9 +70,15 @@ const PlantSearchBar = ({ setPlantObject }) => {
           />
           {selectedPlant && (
             <View style={{ marginTop: 10 }}>
-              <Text style={styles.plantText}>Plant selected: {selectedPlant.common[0]}</Text>
-              <Text style={styles.plantText}>Family: {selectedPlant.family}</Text>
-              <Text style={styles.plantText}>Latin name: {selectedPlant.latin}</Text>
+              <Text style={styles.plantText}>
+                Plant selected: {selectedPlant.common[0]}
+              </Text>
+              <Text style={styles.plantText}>
+                Family: {selectedPlant.family}
+              </Text>
+              <Text style={styles.plantText}>
+                Latin name: {selectedPlant.latin}
+              </Text>
             </View>
           )}
         </View>
@@ -84,7 +92,7 @@ export default PlantSearchBar;
 const styles = StyleSheet.create({
   plantText: {
     marginTop: 10,
-    fontFamily: 'Roboto',
+    fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     fontSize: 15,
   },
   searchButton: {

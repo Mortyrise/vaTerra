@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Platform } from 'react-native';
 import React, { useEffect } from 'react';
 import Plant from './Plant';
 import { useState } from 'react';
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 23,
     fontWeight: 'bold',
-    fontFamily: 'Roboto',
+    fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     color: '#009c97',
     letterSpacing: 8,
   },

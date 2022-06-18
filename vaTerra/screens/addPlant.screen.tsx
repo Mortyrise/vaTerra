@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
   Alert,
+  Platform,
 } from 'react-native';
 import { firebase } from '../utils/config';
 import * as ImagePicker from 'expo-image-picker';
@@ -110,7 +111,8 @@ function AddPlant() {
             marginTop: 70,
             fontSize: 16,
             fontWeight: 'bold',
-            fontFamily: 'Roboto',
+            fontFamily:
+              Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
             color: '#009c97',
             letterSpacing: 3,
           }}
