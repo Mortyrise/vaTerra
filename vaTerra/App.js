@@ -50,7 +50,7 @@ export default function App() {
       const user = await getUser(1);
       setUser(user);
     } catch (error) {
-      console.log('first ConnectionTest', error);
+      console.log('first ConnectionTest error:', error);
     }
   };
 

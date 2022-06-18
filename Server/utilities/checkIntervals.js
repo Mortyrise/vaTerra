@@ -8,7 +8,6 @@ const pushNotificationAndUpdateWaterInterval = async () => {
   try {
     const now = Date.now();
 
-    console.log(User);
     let users = await (await fetch('http://localhost:3111/users')).json();
 
     for (let i = 0; i < users.length; i++) {
@@ -36,7 +35,7 @@ const pushNotificationAndUpdateWaterInterval = async () => {
       }
     }
   } catch (error) {
-    console.log(error);
+    console.log('checkInterval Error:', error);
 
     // find user plants, find plant and then update nextreminder
   }
