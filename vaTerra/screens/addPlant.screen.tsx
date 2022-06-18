@@ -27,14 +27,10 @@ function AddPlant() {
 
   const submitPlant = () => {
     if (!plantUri) {
-      Alert.alert(
-        'please upload an Image before adding the plant to your hibernacle :)'
-      );
+      Alert.alert('please upload an Image before adding the plant to your hibernacle :)');
     } else {
       if (!plantObject) {
-        Alert.alert(
-          'Please select a Plant before adding it to your hibernacle :)'
-        );
+        Alert.alert('Please select a Plant before adding it to your hibernacle :)');
       } else {
         const plantSchema = {
           ...plantObject,
@@ -73,7 +69,7 @@ function AddPlant() {
       aspect: [3, 4],
       quality: 1,
     });
-    console.log(result);
+    // console.log(result);
     if (!result.cancelled) {
       const { uri } = result as ImageInfo;
       const source = { uri: uri };
@@ -86,9 +82,7 @@ function AddPlant() {
     setUploading(true);
     const response = await fetch(plantImgURI.uri);
     const blob = await response.blob();
-    const filename = plantImgURI.uri.substring(
-      plantImgURI.uri.lastIndexOf('/') + 1
-    );
+    const filename = plantImgURI.uri.substring(plantImgURI.uri.lastIndexOf('/') + 1);
     try {
       let snapshot = await firebase.storage().ref().child(filename).put(blob);
       let url = await snapshot.ref.getDownloadURL();
@@ -128,8 +122,7 @@ function AddPlant() {
         </View>
         <View>
           <Text style={{}}>
-            Depending on your local weather, set the interval of the reminders
-            for this plant
+            Depending on your local weather, set the interval of the reminders for this plant
           </Text>
           <Slider
             style={{ width: 300, height: 40 }}
@@ -144,39 +137,26 @@ function AddPlant() {
           <Text>{waterReminder}</Text>
         </View>
         <View style={styles.uploadimage}>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-          >
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Pressable onPress={pickImage} style={styles.imgButton}>
-              <Text
-                style={{ color: 'white', fontSize: 16, textAlign: 'center' }}
-              >
+              <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>
                 Pick an Image from your gallery
               </Text>
             </Pressable>
             {
               //TODO make this look nices -> Upload and add plant in one step
               <Pressable onPress={uploadImage} style={styles.imgButton}>
-                <Text
-                  style={{ color: 'white', fontSize: 16, textAlign: 'center' }}
-                >
+                <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>
                   Upload Image
                 </Text>
               </Pressable>
             }
           </View>
-          {plantImgURI && (
-            <Image
-              source={{ uri: plantImgURI.uri }}
-              style={styles.plantImage}
-            />
-          )}
+          {plantImgURI && <Image source={{ uri: plantImgURI.uri }} style={styles.plantImage} />}
         </View>
         {
           <Pressable onPress={submitPlant} style={styles.imgButton}>
-            <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>
-              ADD PLANT
-            </Text>
+            <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>ADD PLANT</Text>
           </Pressable>
         }
       </View>
