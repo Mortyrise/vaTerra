@@ -29,10 +29,10 @@ function WaterRemind() {
         <Text style={styles.text}>Watering Reminders</Text>
       </View>
       <View style={{ marginTop: 40 }}>
-        {plants.map((plant, index) => (
+        {plants.map((plant, index, user) => (
           <View key={index}>
             <Text style={styles.text}> {plant.latin}</Text>
-            <IntervalSliders plant={plant} />
+            <IntervalSliders plant={plant} user={user} />
           </View>
         ))}
       </View>
