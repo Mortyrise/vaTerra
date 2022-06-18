@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform, ScrollView } from 'react-native';
 import IntervalSliders from '../components/IntervalSliders';
 import { getUser } from '../utils/service';
 
@@ -24,19 +24,21 @@ function WaterRemind() {
     // console.log('fetching data');
   }, []);
   return (
-    <View style={styles.slidersContainer}>
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={styles.text}>Watering Reminders</Text>
+    <ScrollView>
+      <View style={styles.slidersContainer}>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={styles.text}>Watering Reminders</Text>
+        </View>
+        <View style={{ marginTop: 40 }}>
+          {plants.map((plant, index, user) => (
+            <View key={index}>
+              <Text style={styles.text}> {plant.latin}</Text>
+              <IntervalSliders plant={plant} user={user} />
+            </View>
+          ))}
+        </View>
       </View>
-      <View style={{ marginTop: 40 }}>
-        {plants.map((plant, index, user) => (
-          <View key={index}>
-            <Text style={styles.text}> {plant.latin}</Text>
-            <IntervalSliders plant={plant} user={user} />
-          </View>
-        ))}
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
