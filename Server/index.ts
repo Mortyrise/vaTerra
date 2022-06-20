@@ -1,13 +1,14 @@
 import Express from 'express';
-
-import nodeCron from 'node-cron';
+// import nodeCron from 'node-cron';
+const morgan = require('morgan');
 
 const app = Express();
+app.use(morgan('dev'));
 
 import cors from 'cors';
 
 import router from './router/router';
-const pushNotificationAndUpdateWaterInterval = require('./utilities/checkIntervals');
+// const pushNotificationAndUpdateWaterInterval = require('./utilities/checkIntervals');
 
 const PORT = 3111;
 
@@ -18,6 +19,6 @@ app.use(cors()).use(Express.json());
 // });
 
 app.use(router).listen(PORT, () => {
-  pushNotificationAndUpdateWaterInterval();
+  // pushNotificationAndUpdateWaterInterval();
   console.log(`Running express server at ${PORT} 🚀🚀 `);
 });

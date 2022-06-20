@@ -1,6 +1,9 @@
-const { Expo } = require('expo-server-sdk');
+import { Expo } from 'expo-server-sdk';
 
-const sendPushNotification = async (targetExpoPushToken, message) => {
+const sendPushNotification = async (
+  targetExpoPushToken: string,
+  message: string
+) => {
   const expo = new Expo();
   const chunks = expo.chunkPushNotifications([
     {
@@ -22,6 +25,7 @@ const sendPushNotification = async (targetExpoPushToken, message) => {
   };
 
   await sendChunks();
+  return true;
 };
 
-module.exports = sendPushNotification;
+export default sendPushNotification;

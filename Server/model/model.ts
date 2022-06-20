@@ -1,11 +1,53 @@
-const Mongoose = require('mongoose');
+import Mongoose, { Schema, model, connect } from 'mongoose';
 const dotenv = require('dotenv');
 dotenv.config();
 // const object = require('../credentials');
 
-Mongoose.connect(process.env.MONGO_CONNECT);
+if (!process.env.MONGO_CONNECT) throw new Error('No connection string');
+Mongoose.connect(process.env.MONGO_CONNECT)
+  .then(() => console.log('Connected'))
+  .catch((error) => console.log('Connection error:', error));
 
-const plantSchema = new Mongoose.Schema({
+console.log(Mongoose.connection.readyState);
+
+interface ITemp {
+  celsius: number;
+  fahrenheit: number;
+}
+
+interface IPlant {
+  id: number;
+  latin: string;
+  family: string;
+  common: string[];
+  category: string;
+  origin: string;
+  climate: string;
+  tempMax: ITemp;
+  tempMin: ITemp;
+  ideallight: string;
+  toleratedlight: string;
+  watering: string;
+  insects: string[];
+  disease: string;
+  use: string[];
+  imagePath: String;
+  nickName: String;
+  wateringReminderInterval: Number;
+  nextWateringReminder: Date;
+  nextReminderDate: Date;
+}
+
+interface IUser {
+  userId: number;
+  userName: string;
+  userEmail: string;
+  userPassword: string;
+  plants: IPlant[];
+}
+
+// 2. Create a Schema corresponding to the document interface.
+const plantSchema = new Schema<IPlant>({
   id: { type: Number },
   latin: { type: String },
   family: { type: String },
@@ -29,18 +71,16 @@ const plantSchema = new Mongoose.Schema({
   imagePath: { type: String },
   nickName: { type: String },
   wateringReminderInterval: { type: Number },
-  nextReminderDate: {
-    type: { type: Date },
-  },
+  nextReminderDate: { type: Date },
 });
 
-const userSchema = new Mongoose.Schema({
+const userSchema = new Schema<IUser>({
   userId: { type: Number },
   userName: { type: String },
   userEmail: { type: String },
   userPassword: { type: String },
-  plantsArray: { type: [plantSchema] },
+  plants: { type: [plantSchema] },
 });
 
-export const Plant = Mongoose.model(`plants`, plantSchema);
-export const User = Mongoose.model(`users`, userSchema);
+export const Plant = model(`plants`, plantSchema);
+export const User = model(`users`, userSchema);

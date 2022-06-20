@@ -1,31 +1,33 @@
-const Plant = require('../model/model');
-const User = require('../model/model');
-const sendPushNotification = require('./pushNotifications');
-const { Expo } = require('expo-server-sdk');
-// const controller = require('../controller/controller');
+import { Plant, User } from '../model/model';
+import sendPushNotification from './pushNotifications';
+import { Expo } from 'expo-server-sdk';
+import fetch from 'node-fetch';
 
 const pushNotificationAndUpdateWaterInterval = async () => {
   try {
     const now = Date.now();
 
-    let users = await (await fetch('http://localhost:3111/users')).json();
+    //TODO change this to get user
+    // let users = await (await fetch('http://localhost:3111/users')).json();
+    const users = await User.find();
 
-    for (let i = 0; i < users.length; i++) {
+    for (const user of users) {
       const expoPushToken = 'ExponentPushToken[HXSGTvOdn0qKrT3EDIlvXN]';
 
-      for (let key of users[0].plantsArray) {
-        if (Date(key.nextReminderDate) < Date(now)) {
+      for (const plant of user.plants) {
+        if (plant.nextReminderDate > new Date()) {
           if (Expo.isExpoPushToken(expoPushToken)) {
-            await sendPushNotification(
+            sendPushNotification(
               expoPushToken,
-              `Your ${key.nickName} has beend added, your interval has been set to each ${key.wateringReminderinterval} days)`
+              `Your ${plant.nickName} has beend added, your interval has been set to each ${plant.wateringReminderInterval} days)`
             );
+
             await fetch('http://localhost:3111/user/plant/reminder', {
               method: 'PUT',
               headers: {
                 'content-type': 'application/json',
               },
-              body: JSON.stringify({ user: users[i], plant: key }),
+              body: JSON.stringify({ user: user, plant: plant }),
             });
           }
           //add the interval again to the old one
