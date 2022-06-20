@@ -9,6 +9,7 @@ import {
   ScrollView,
   Alert,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { firebase } from '../utils/config';
 import * as ImagePicker from 'expo-image-picker';
@@ -18,6 +19,8 @@ import Slider from '@react-native-community/slider';
 import addDaystoDate from '../utils/helperFunctions';
 // import { ImageInfo } from 'expo-image-picker/build/ImagePicker.types';
 import { ImageInfo } from 'expo-image-picker';
+import plant1 from '../assets/plant.gif';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function AddPlant() {
   const [nickNameText, onChangeNickNameText] = React.useState('');
@@ -45,7 +48,6 @@ function AddPlant() {
           wateringReminderInterval: waterReminder,
           nextReminderDate: addDaystoDate(waterReminder),
         };
-
         addPlantToUser(plantSchema);
         Alert.alert('Your plant has been added to your hibernacle :)');
         setPlantUri(null);
@@ -94,7 +96,7 @@ function AddPlant() {
     try {
       let snapshot = await firebase.storage().ref().child(filename).put(blob);
       let url = await snapshot.ref.getDownloadURL();
-      setUploading(false);
+      setUploading(true);
       Alert.alert('Your photo has been updated');
       setPlantUri(url);
       setPlantImgURI(null);
@@ -104,86 +106,93 @@ function AddPlant() {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text
-          style={{
-            marginTop: 70,
-            fontSize: 16,
-            fontWeight: 'bold',
-            fontFamily:
-              Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
-            color: '#009c97',
-            letterSpacing: 3,
-          }}
-        >
-          Add a new plant to your hibernacle
-        </Text>
-        <TextInput
-          placeholder="Add your new plant nickname"
-          onChangeText={onChangeNickNameText}
-          value={nickNameText}
-          style={styles.input}
-        ></TextInput>
-        <SearchBar setPlantObject={setPlantObject} />
-        <View style={{ width: 280 }}>
-          {plantObject && <Text>Watering advice: {plantObject.watering}</Text>}
-        </View>
-        <View>
-          <Text style={{}}>
-            Depending on your local weather, set the interval of the reminders
-            for this plant
-          </Text>
-          <Slider
-            style={{ width: 300, height: 40 }}
-            minimumValue={1}
-            maximumValue={15}
-            minimumTrackTintColor={'#009c97'}
-            onValueChange={(value) => {
-              setWaterReminder(Math.floor(value));
-            }}
-            thumbTintColor={'#009c97'}
-          />
-          <Text>{waterReminder}</Text>
-        </View>
-        <View style={styles.uploadimage}>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-          >
-            <Pressable onPress={pickImage} style={styles.imgButton}>
-              <Text
-                style={{ color: 'white', fontSize: 16, textAlign: 'center' }}
-              >
-                Pick an Image from your gallery
-              </Text>
-            </Pressable>
-            {
-              //TODO make this look nices -> Upload and add plant in one step
-              <Pressable onPress={uploadImage} style={styles.imgButton}>
+    <KeyboardAvoidingView style={styles.uploadimage} behavior="position">
+      {/* <SafeAreaView> */}
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.title}>Add a new plant to your hibernacle</Text>
+          <View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Pressable onPress={pickImage} style={styles.imgButton}>
                 <Text
-                  style={{ color: 'white', fontSize: 16, textAlign: 'center' }}
+                  style={{
+                    color: 'white',
+                    fontSize: 16,
+                    textAlign: 'center',
+                  }}
                 >
-                  Upload Image
+                  Pick an Image from your gallery
                 </Text>
               </Pressable>
-            }
+              {
+                //TODO make this look nices -> Upload and add plant in one step
+                <Pressable onPress={uploadImage} style={styles.imgButton}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontSize: 16,
+                      textAlign: 'center',
+                    }}
+                  >
+                    Upload Image
+                  </Text>
+                </Pressable>
+              }
+            </View>
+            {!plantImgURI ? (
+              <Image style={styles.plantImage} source={plant1} />
+            ) : (
+              plantImgURI && (
+                <Image
+                  source={{ uri: plantImgURI.uri }}
+                  style={styles.plantImage}
+                />
+              )
+            )}
           </View>
-          {plantImgURI && (
-            <Image
-              source={{ uri: plantImgURI.uri }}
-              style={styles.plantImage}
-            />
-          )}
-        </View>
-        {
-          <Pressable onPress={submitPlant} style={styles.imgButton}>
-            <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>
-              ADD PLANT
+          <TextInput
+            placeholder="Add your new plant nickname"
+            onChangeText={onChangeNickNameText}
+            value={nickNameText}
+            style={styles.input}
+          ></TextInput>
+          <SearchBar setPlantObject={setPlantObject} />
+          <View style={{ width: 280 }}>
+            {plantObject && (
+              <Text>Watering advice: {plantObject.watering}</Text>
+            )}
+          </View>
+          <View>
+            <Text style={{}}>
+              Depending on your local weather, set the interval of the reminders
+              for this plant
             </Text>
+            <Slider
+              style={{ width: 300, height: 40 }}
+              minimumValue={1}
+              maximumValue={15}
+              minimumTrackTintColor={'#009c97'}
+              onValueChange={(value) => {
+                setWaterReminder(Math.floor(value));
+              }}
+              thumbTintColor={'#009c97'}
+            />
+            <Text>{waterReminder}</Text>
+          </View>
+          <Pressable onPress={submitPlant} style={styles.imgButton}>
+            <View>
+              <Text style={styles.buttonText}>ADD PLANT</Text>
+            </View>
           </Pressable>
-        }
-      </View>
-    </ScrollView>
+        </View>
+      </ScrollView>
+      {/* </SafeAreaView> */}
+    </KeyboardAvoidingView>
   );
 }
 
@@ -202,7 +211,16 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    height: '100%',
+    flex: 1,
+    padding: 10,
+  },
+  title: {
+    marginTop: 70,
+    fontSize: 16,
+    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
+    color: '#009c97',
+    letterSpacing: 3,
   },
   searchBar: {
     borderRadius: 80,
@@ -229,6 +247,12 @@ const styles = StyleSheet.create({
     padding: 5,
     marginTop: 10,
     borderRadius: 60,
+    alignSelf: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
   },
   uploadimage: { alignItems: 'center', justifyContent: 'center', flex: 1 },
 });
