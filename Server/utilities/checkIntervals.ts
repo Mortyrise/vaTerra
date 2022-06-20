@@ -12,7 +12,7 @@ const pushNotificationAndUpdateWaterInterval = async () => {
     const users = await User.find();
 
     for (const user of users) {
-      const expoPushToken = 'ExponentPushToken[HXSGTvOdn0qKrT3EDIlvXN]';
+      const expoPushToken = 'ExponentPushToken[HXSGTvOdn0qKrT3EDIlv88]';
 
       for (const plant of user.plants) {
         if (plant.nextReminderDate > new Date()) {

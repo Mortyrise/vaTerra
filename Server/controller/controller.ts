@@ -91,6 +91,8 @@ const addPlantByUser = async function (req: Request, res: Response) {
   try {
     console.log('addPlantByUser', req.body);
     const userToUpdate = await User.findOne({ userId: 1 });
+    console.log('userToUpdate', userToUpdate);
+
     const plantToAdd = req.body;
 
     if (userToUpdate) {
@@ -98,7 +100,7 @@ const addPlantByUser = async function (req: Request, res: Response) {
         { id: userToUpdate.userId },
         {
           $push: {
-            plantsArray: plantToAdd,
+            plants: plantToAdd,
           },
         }
       );
@@ -120,7 +122,7 @@ const removePlantByUser = async function (req: Request, res: Response) {
     await User.findByIdAndUpdate(
       req.params.id,
       {
-        $pull: { plantsArray: { _id: req.body._id } },
+        $pull: { plants: { _id: req.body._id } },
       },
       {
         returnDocument: 'after',
@@ -194,7 +196,7 @@ const updateReminder = async function (req: Request, res: Response) {
       req.body.user._id,
       {
         $set: {
-          plantsArray: array,
+          plants: array,
         },
       },
       {

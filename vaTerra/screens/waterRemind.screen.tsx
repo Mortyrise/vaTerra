@@ -11,8 +11,8 @@ function WaterRemind() {
       const data = await getUser(1);
       // console.log('getData', data);
       //could be undefined if no plants
-      if (data.plantsArray) {
-        setPlants(data.plantsArray);
+      if (data.plants) {
+        setPlants(data.plants);
       }
     } catch (error) {
       console.log('Error waterRemid', error);
