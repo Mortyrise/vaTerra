@@ -4,7 +4,6 @@ import { Plant, User } from '../model/model';
 
 const findBySpecies = async function (req: Request, res: Response) {
   try {
-    console.log(req.body, 'reqbody');
     const onePlant = await Plant.find({ common: { $in: [req.body.common] } });
     res.status(200);
     res.send(onePlant);
@@ -63,9 +62,14 @@ const removeUser = async function (req: Request, res: Response) {
 
 const findUser = async function (req: Request, res: Response) {
   try {
-    const userAdded = await User.findOne({ userId: req.params.id });
+    const user = await User.findOne({ userId: req.params.id });
+    if (!user) {
+      res.send('user not found');
+      res.status(404);
+    }
+
     res.status(201);
-    res.send(userAdded);
+    res.send(user);
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -88,18 +92,23 @@ const addPlantByUser = async function (req: Request, res: Response) {
     console.log('addPlantByUser', req.body);
     const userToUpdate = await User.findOne({ userId: 1 });
     const plantToAdd = req.body;
-    await User.updateOne(
-      { id: userToUpdate.userId },
-      {
-        $push: {
-          plantsArray: plantToAdd,
-        },
-      }
-    );
-    const updatedUser = await User.findOne({ userId: 8 });
-    console.log(updatedUser);
-    res.status(201);
-    res.send(updatedUser);
+
+    if (userToUpdate) {
+      await User.updateOne(
+        { id: userToUpdate.userId },
+        {
+          $push: {
+            plantsArray: plantToAdd,
+          },
+        }
+      );
+      const updatedUser = await User.findOne({ userId: 8 });
+      console.log(updatedUser);
+      res.status(201);
+      res.send(updatedUser);
+    } else {
+      res.status(500);
+    }
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -132,19 +141,25 @@ const increaseReminder = async function (req: Request, res: Response) {
     let array: [] = [];
     let reminderInterval = plant.wateringReminderInterval;
     let find = await User.findById(req.body.user._id);
-    for (let el of find.plantsArray) {
-      if (el.id === plant.id) {
-        el.nextReminderDate = Date.now() + reminderInterval * 1000 * 3600 * 24;
-        array.push(el as never);
+
+    if (!find) throw new Error('User not found');
+    if (!find.plants) throw new Error('User has no plants');
+
+    for (let plant of find.plants) {
+      if (plant.id === plant.id) {
+        plant.nextReminderDate = new Date(
+          Date.now() + reminderInterval * 1000 * 3600 * 24
+        );
+        array.push(plant as never);
       } else {
-        array.push(el as never);
+        array.push(plant as never);
       }
     }
     let user = await User.findByIdAndUpdate(
       req.body.user._id,
       {
         $set: {
-          plantsArray: array,
+          plants: array,
         },
       },
       {
@@ -164,12 +179,15 @@ const updateReminder = async function (req: Request, res: Response) {
     let array: [] = [];
     let find = await User.findById(req.body.user._id);
 
-    for (let el of find.plantsArray) {
-      if (el.id === plant.id) {
-        el.wateringReminderInterval = req.body.newInterval;
-        array.push(el as never);
+    if (!find) throw new Error('User not found');
+    if (!find.plants) throw new Error('User has no plants');
+
+    for (let plant of find.plants) {
+      if (plant.id === plant.id) {
+        plant.wateringReminderInterval = req.body.newInterval;
+        array.push(plant as never);
       } else {
-        array.push(el as never);
+        array.push(plant as never);
       }
     }
     let user = await User.findByIdAndUpdate(
