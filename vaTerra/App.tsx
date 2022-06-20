@@ -71,7 +71,7 @@ export default function App() {
               name="Home"
               component={!user ? Loading : HomeScreen}
               options={{
-                // unmountOnBlur: true, <- this is not working
+                // unmountOnBlur: true, //<- this is not working
                 tabBarIcon: () => {
                   return (
                     <MaterialCommunityIcons
