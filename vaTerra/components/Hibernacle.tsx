@@ -14,7 +14,7 @@ const Hibernacle = () => {
       // console.log('GetUserData', data);
       setUser(data);
       // console.log('UserSet:', user);
-      setPlants(data.plantsArray);
+      setPlants(data.plants);
     } catch (error) {
       console.log('Error get Data:', error);
     }
