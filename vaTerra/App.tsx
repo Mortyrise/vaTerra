@@ -71,7 +71,7 @@ export default function App() {
               name="Home"
               component={!user ? Loading : HomeScreen}
               options={{
-                unmountOnBlur: true,
+                // unmountOnBlur: true, //<- this is not working
                 tabBarIcon: () => {
                   return (
                     <MaterialCommunityIcons
@@ -89,7 +89,11 @@ export default function App() {
               options={{
                 tabBarIcon: () => {
                   return (
-                    <MaterialCommunityIcons name="plus" size={30} color={'rgb(243,242,238)'} />
+                    <MaterialCommunityIcons
+                      name="plus"
+                      size={30}
+                      color={'rgb(243,242,238)'}
+                    />
                   );
                 },
               }}
@@ -100,7 +104,11 @@ export default function App() {
               options={{
                 tabBarIcon: () => {
                   return (
-                    <MaterialCommunityIcons name="water" size={28} color={'rgb(243,242,238)'} />
+                    <MaterialCommunityIcons
+                      name="water"
+                      size={28}
+                      color={'rgb(243,242,238)'}
+                    />
                   );
                 },
               }}
