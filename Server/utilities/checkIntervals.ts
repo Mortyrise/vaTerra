@@ -43,4 +43,4 @@ const pushNotificationAndUpdateWaterInterval = async () => {
   }
 };
 
-module.exports = pushNotificationAndUpdateWaterInterval;
+export default pushNotificationAndUpdateWaterInterval;

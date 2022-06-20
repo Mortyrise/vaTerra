@@ -4,7 +4,6 @@ import { Plant, User } from '../model/model';
 
 const findBySpecies = async function (req: Request, res: Response) {
   try {
-    console.log(req.body, 'reqbody');
     const onePlant = await Plant.find({ common: { $in: [req.body.common] } });
     res.status(200);
     res.send(onePlant);
@@ -69,7 +68,6 @@ const findUser = async function (req: Request, res: Response) {
       res.status(404);
     }
 
-    console.log('user', user);
     res.status(201);
     res.send(user);
   } catch (error) {

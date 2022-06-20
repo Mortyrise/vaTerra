@@ -1,14 +1,12 @@
 import Mongoose, { Schema, model, connect } from 'mongoose';
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 dotenv.config();
 // const object = require('../credentials');
 
 if (!process.env.MONGO_CONNECT) throw new Error('No connection string');
 Mongoose.connect(process.env.MONGO_CONNECT)
-  .then(() => console.log('Connected'))
+  .then(() => console.log('🔥🔥Mongo DB Connected 🔥🔥'))
   .catch((error) => console.log('Connection error:', error));
-
-console.log(Mongoose.connection.readyState);
 
 interface ITemp {
   celsius: number;
