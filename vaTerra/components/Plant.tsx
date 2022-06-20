@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   plantImage: {
     width: 150,
     height: 200,
-    borderRadius: 90,
+    borderRadius: 20,
   },
   plantContainer: {
     padding: 10,

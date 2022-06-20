@@ -63,7 +63,7 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator
           labeled={false}
-          barStyle={{ backgroundColor: '#009c97', height: 60 }}
+          barStyle={{ backgroundColor: '#009c97', height: 80 }}
           activeColor="white"
         >
           <>
