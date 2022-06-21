@@ -17,9 +17,7 @@ import SearchBar from '../components/SearchBar';
 import { addPlantToUser } from '../utils/service';
 import Slider from '@react-native-community/slider';
 import addDaystoDate from '../utils/helperFunctions';
-// import { ImageInfo } from 'expo-image-picker/build/ImagePicker.types';
 import { ImageInfo } from 'expo-image-picker';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 function AddPlant() {
   const [nickNameText, onChangeNickNameText] = React.useState('');
@@ -79,41 +77,26 @@ function AddPlant() {
       aspect: [3, 4],
       quality: 1,
     });
-    // console.log(result);
     if (!result.cancelled) {
       const { uri } = result as ImageInfo;
       const source = { uri: uri };
       setPlantImgURI(result);
       setSelectedImage(true);
     }
-    // return plantImgURI;
   };
 
   const uploadImage = async () => {
     setUploading(true);
     const response = await fetch(plantImgURI.uri);
-    // console.log('PLANT IMAGE URI', plantImgURI.uri);
-    // console.log('RESPONSE', response);
     const blob = await response.blob();
     const filename = plantImgURI.uri.substring(
       plantImgURI.uri.lastIndexOf('/') + 1
     );
     try {
-      // if (profilePic == null) return;
-      // const imageRef = ref(firebase
-      // .storage(), `profilePics/${profilePic.name + v4()}`);
-      // uploadBytes(imageRef, profilePic).then((snapshot) => {
-      //   getDownloadURL(snapshot.ref).then((url) => {
-      //     dispatch(changeProfilePic(url));
-      //   });
-      // });
-
       let snapshot = await firebase.storage().ref().child(filename).put(blob);
       let url = snapshot.ref.getDownloadURL();
       setUploading(true);
       setPlantUri(url);
-      // Alert.alert('Your photo has been updated');
-      // setPlantImgURI(null);
       return url;
     } catch (error) {
       console.error(error);
@@ -146,20 +129,6 @@ function AddPlant() {
                   Pick an Image from your gallery
                 </Text>
               </Pressable>
-              {/* {
-                //TODO make this look nices -> Upload and add plant in one step
-                <Pressable onPress={uploadImage} style={styles.imgButton}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontSize: 16,
-                      textAlign: 'center',
-                    }}
-                  >
-                    Upload Image
-                  </Text>
-                </Pressable>
-              } */}
             </View>
             {!plantImgURI ? (
               <Image
