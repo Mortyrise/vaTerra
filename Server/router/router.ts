@@ -1,6 +1,7 @@
 import express from 'express';
-const router = express.Router();
 import controller from '../controller/controller';
+
+const router = express.Router();
 
 router.get('/plants', controller.findAllPlants);
 router.get('/user/:id', controller.findUser);
