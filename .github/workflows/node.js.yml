@@ -30,7 +30,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          credentials: ${{ secrets.MONGO_CONNECT }}
       - run: npm ci
       - run: npm test
-        with: #Connection string
-          credentials: ${{ secrets.MONGO_CONNECT }}
