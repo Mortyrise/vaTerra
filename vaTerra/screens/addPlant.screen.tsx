@@ -19,7 +19,6 @@ import Slider from '@react-native-community/slider';
 import addDaystoDate from '../utils/helperFunctions';
 // import { ImageInfo } from 'expo-image-picker/build/ImagePicker.types';
 import { ImageInfo } from 'expo-image-picker';
-// import plant1 from '../assets/plant.gif';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 function AddPlant() {
@@ -29,9 +28,10 @@ function AddPlant() {
   const [plantUri, setPlantUri] = useState(null);
   const [plantObject, setPlantObject] = useState(null);
   const [waterReminder, setWaterReminder] = useState(5);
+  const [selectedImage, setSelectedImage] = useState(false);
 
-  const submitPlant = () => {
-    if (!plantUri) {
+  const submitPlant = async () => {
+    if (!plantImgURI) {
       Alert.alert(
         'please upload an Image before adding the plant to your hibernacle :)'
       );
@@ -43,16 +43,18 @@ function AddPlant() {
       } else {
         const plantSchema = {
           ...plantObject,
-          imagePath: plantUri,
+          imagePath: await uploadImage(),
           nickName: nickNameText,
           wateringReminderInterval: waterReminder,
           nextReminderDate: addDaystoDate(waterReminder),
         };
         addPlantToUser(plantSchema);
+        console.log('PLANT SHCEMA', plantSchema);
         Alert.alert('Your plant has been added to your hibernacle :)');
         setPlantUri(null);
-        setPlantObject({});
+        setPlantObject(null);
         setWaterReminder(null);
+        setSelectedImage(false);
       }
     }
   };
@@ -81,27 +83,42 @@ function AddPlant() {
     if (!result.cancelled) {
       const { uri } = result as ImageInfo;
       const source = { uri: uri };
-      setPlantImgURI(source);
+      setPlantImgURI(result);
+      setSelectedImage(true);
     }
-    return plantImgURI;
+    // return plantImgURI;
   };
 
   const uploadImage = async () => {
     setUploading(true);
     const response = await fetch(plantImgURI.uri);
+    // console.log('PLANT IMAGE URI', plantImgURI.uri);
+    // console.log('RESPONSE', response);
     const blob = await response.blob();
     const filename = plantImgURI.uri.substring(
       plantImgURI.uri.lastIndexOf('/') + 1
     );
     try {
+      // if (profilePic == null) return;
+      // const imageRef = ref(firebase
+      // .storage(), `profilePics/${profilePic.name + v4()}`);
+      // uploadBytes(imageRef, profilePic).then((snapshot) => {
+      //   getDownloadURL(snapshot.ref).then((url) => {
+      //     dispatch(changeProfilePic(url));
+      //   });
+      // });
+
       let snapshot = await firebase.storage().ref().child(filename).put(blob);
-      let url = await snapshot.ref.getDownloadURL();
+      let url = snapshot.ref.getDownloadURL();
       setUploading(true);
-      Alert.alert('Your photo has been updated');
       setPlantUri(url);
-      setPlantImgURI(null);
+      // Alert.alert('Your photo has been updated');
+      // setPlantImgURI(null);
+      return url;
     } catch (error) {
       console.error(error);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -129,7 +146,7 @@ function AddPlant() {
                   Pick an Image from your gallery
                 </Text>
               </Pressable>
-              {
+              {/* {
                 //TODO make this look nices -> Upload and add plant in one step
                 <Pressable onPress={uploadImage} style={styles.imgButton}>
                   <Text
@@ -142,7 +159,7 @@ function AddPlant() {
                     Upload Image
                   </Text>
                 </Pressable>
-              }
+              } */}
             </View>
             {!plantImgURI ? (
               <Image

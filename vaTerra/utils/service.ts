@@ -1,6 +1,6 @@
 //Need to be something like this: 'https://e756-45-130-134-153.eu.ngrok.io/';
 //'ngrok.exe http 3111'
-const baseUrl = 'https://6e3b-62-182-99-225.ngrok.io/';
+const baseUrl = 'https://44f4-185-187-243-76.ngrok.io/';
 import Plant from '../Types/Plants';
 import User from '../Types/User';
 
@@ -54,6 +54,7 @@ export const removeUser = async (user: User) => {
 
 //Add Plant to the users plantsArray, "Put"
 export const addPlantToUser = async (plantObject: Plant) => {
+  console.log('plantObject', plantObject);
   try {
     const plant = await fetch(baseUrl + 'user/plant', {
       method: 'PUT',
