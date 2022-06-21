@@ -8,6 +8,8 @@ on:
     branches: ['dev']
   pull_request:
     branches: ['dev']
+env:
+  MONGO_CONNECT: 'mongodb+srv://arod90:spitfire@cluster0.oiuln.mongodb.net/VaTerra'
 
 jobs:
   Server:
@@ -30,3 +32,5 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
+        with: #Connection string
+          credentials: ${{ secrets.MONGO_CONNECT }}
