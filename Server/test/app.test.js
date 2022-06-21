@@ -1,3 +1,3 @@
-it('First test should always be running', () => {
+it('Started testing', () => {
   expect(true).toBe(true); //
 });
