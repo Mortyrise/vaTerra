@@ -19,7 +19,7 @@ import Slider from '@react-native-community/slider';
 import addDaystoDate from '../utils/helperFunctions';
 // import { ImageInfo } from 'expo-image-picker/build/ImagePicker.types';
 import { ImageInfo } from 'expo-image-picker';
-import plant1 from '../assets/plant.gif';
+// import plant1 from '../assets/plant.gif';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 function AddPlant() {
@@ -145,7 +145,10 @@ function AddPlant() {
               }
             </View>
             {!plantImgURI ? (
-              <Image style={styles.plantImage} source={plant1} />
+              <Image
+                style={styles.plantImage}
+                source={require('../assets/plant.gif')}
+              />
             ) : (
               plantImgURI && (
                 <Image
