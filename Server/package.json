@@ -8,7 +8,8 @@
     "test-js": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test-dev": "jest --watchAll",
     "start-dev": "nodemon index",
-    "start": "nodemon index.ts"
+    "start": "node ./build/index.js",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",

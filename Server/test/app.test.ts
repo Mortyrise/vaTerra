@@ -20,8 +20,8 @@ describe('API CALLS', () => {
     expect(true).toBe(true);
   });
 
-  test('should return 404 for / since it has no end point', async () => {
-    const response = await supertest.get('/');
+  test('should return 404 for /NoendPoint since it is no end point', async () => {
+    const response = await supertest.get('/NoendPoint');
     expect(response.status).toBe(404);
   });
 

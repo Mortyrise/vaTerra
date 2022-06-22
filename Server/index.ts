@@ -4,11 +4,13 @@ import morgan from 'morgan';
 import cors from 'cors';
 import router from './router/router';
 import pushNotificationAndUpdateWaterInterval from './utilities/checkIntervals';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // const startServer = async function (PORT: number) {
 // if (!PORT) PORT = 3118;
-
-const PORT = 3111;
+//Running the server
+const PORT = process.env.PORT || 3111;
 
 const app = Express();
 app.use(morgan('dev'));

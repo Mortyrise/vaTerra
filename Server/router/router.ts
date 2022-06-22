@@ -13,4 +13,9 @@ router.put('/user/plant/interval', controller.updateReminder);
 router.delete('user/plant/delete/:id', controller.removePlantByUser);
 router.delete('user/:id', controller.removeUser);
 
+router.get('/', (req, res) => {
+  res.send('Hello World this has been automaticly been build!');
+  console.log('server got request');
+});
+
 export default router;
