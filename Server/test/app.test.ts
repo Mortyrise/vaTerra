@@ -21,7 +21,7 @@ describe('API CALLS', () => {
   });
 
   test('should return 404 for / since it has no end point', async () => {
-    const response = await supertest.get('/');
+    const response = await supertest.get('/NoendPoint');
     expect(response.status).toBe(404);
   });
 
