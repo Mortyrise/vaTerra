@@ -7,9 +7,6 @@ import pushNotificationAndUpdateWaterInterval from './utilities/checkIntervals';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// const startServer = async function (PORT: number) {
-// if (!PORT) PORT = 3118;
-//Running the server
 const PORT = process.env.PORT || 3111;
 
 const app = Express();
@@ -17,7 +14,6 @@ app.use(morgan('dev'));
 app.use(cors()).use(Express.json());
 
 cron.schedule('* * * * *', () => {
-  // console.log('running a task every minute');
   pushNotificationAndUpdateWaterInterval();
 });
 
