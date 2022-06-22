@@ -110,7 +110,7 @@ function AddPlant() {
       {/* <SafeAreaView> */}
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.title}>Add a new plant to your hibernacle</Text>
+          <Text style={styles.title}>Add a new plant </Text>
           <View>
             <View
               style={{
@@ -157,18 +157,21 @@ function AddPlant() {
             )}
           </View>
           <View>
-            <Text style={{}}>
-              Depending on your local weather, set the interval of the reminders
-              for this plant
+            <Text style={styles.waterText}>
+              Set the interval of your watering Reminders
             </Text>
             <Slider
-              style={{ width: 300, height: 40 }}
+              style={{
+                width: 300,
+                height: 40,
+              }}
               minimumValue={1}
               maximumValue={15}
               minimumTrackTintColor={'#009c97'}
               onValueChange={(value) => {
                 setWaterReminder(Math.floor(value));
               }}
+              // thumbImage={require('../assets/but.png')}
               thumbTintColor={'#009c97'}
             />
             <Text>{waterReminder}</Text>
@@ -191,8 +194,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#009c97',
     marginTop: 20,
     borderRadius: 5,
-    width: 160,
-    height: 55,
+    width: 260,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 13,
@@ -204,12 +207,13 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
-    marginTop: 70,
-    fontSize: 16,
+    marginTop: 50,
+    fontSize: 22,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     color: '#009c97',
     letterSpacing: 3,
+    textAlign: 'center',
   },
   searchBar: {
     borderRadius: 80,
@@ -217,25 +221,29 @@ const styles = StyleSheet.create({
     width: 280,
     fontSize: 12,
   },
+  waterText: {
+    fontSize: 17,
+  },
   input: {
     width: 300,
-    height: 40,
+    height: 50,
     margin: 12,
-    borderWidth: 1,
+    borderWidth: 3,
     padding: 12,
     borderRadius: 10,
     alignContent: 'center',
     textAlign: 'right',
     borderColor: '#009c97',
-    marginTop: 60,
+    backgroundColor: 'white',
   },
   plantImage: {
-    height: 213,
+    height: 180,
     width: 160,
     borderWidth: 1,
     padding: 5,
     marginTop: 10,
     borderRadius: 60,
+    resizeMode: 'center',
     alignSelf: 'center',
   },
   buttonText: {

@@ -1,10 +1,18 @@
 //Need to be something like this: 'https://e756-45-130-134-153.eu.ngrok.io/';
 //'ngrok.exe http 3111'
-const baseUrl = 'https://44f4-185-187-243-76.ngrok.io/';
+const baseUrl = 'https://34c0-62-182-99-225.ngrok.io/';
 import Plant from '../Types/Plants';
 import User from '../Types/User';
 
 //Get user plants
+// const fetchOptions = {
+//   method: 'GET',
+//   headers: {
+//     Accept: 'application/json',
+//     'Content-Type': 'application/json',
+//   },
+// };
+
 export const getPlants = async () => {
   try {
     const result = await fetch(baseUrl + 'plants');
@@ -12,6 +20,11 @@ export const getPlants = async () => {
   } catch (error) {
     console.log('Error Service-getPlants', error);
   }
+  // fetch(baseUrl + 'plants', fetchOptions)
+  //   .then((response) => response.json())
+  //   .then((response) => {
+  //     return response;
+  //   });
 };
 
 //Get user

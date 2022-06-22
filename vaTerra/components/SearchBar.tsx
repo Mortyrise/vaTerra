@@ -52,22 +52,28 @@ const PlantSearchBar = ({ setPlantObject }) => {
             placeholder="Search plant by it's common name"
             value={search}
           />
-          <SelectDropdown
-            data={filteredPlants}
-            onSelect={(selectedItem) => {
-              setPlantObject(selectedItem);
-            }}
-            defaultButtonText={`Select plant (${filteredPlants.length})`}
-            buttonTextAfterSelection={(selectedItem) => {
-              setSelectedPlant(selectedItem);
-              return `Selected plant:`;
-            }}
-            rowTextForSelection={(item) => {
-              return item.common[0];
-            }}
-            // dropdownBackgroundColor="#009c97"
-            // style={styles.searchButton}
-          />
+          <View style={styles.dropdownCont}>
+            <SelectDropdown
+              buttonStyle={styles.dropdown}
+              data={filteredPlants}
+              onSelect={(selectedItem) => {
+                setPlantObject(selectedItem);
+              }}
+              defaultButtonText={`Select plant (${
+                filteredPlants ? filteredPlants.length : ''
+              })`}
+              buttonTextStyle={styles.buttonText}
+              buttonTextAfterSelection={(selectedItem) => {
+                setSelectedPlant(selectedItem);
+                return `Selected plant:`;
+              }}
+              rowTextForSelection={(item) => {
+                return item.common[0];
+              }}
+              // dropdownBackgroundColor="#009c97"
+              // style={styles.searchButton}
+            />
+          </View>
           {selectedPlant && (
             <View style={{ marginTop: 10 }}>
               <Text style={styles.plantText}>
@@ -95,15 +101,28 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     fontSize: 15,
   },
+  dropdownCont: {
+    alignItems: 'center',
+  },
+  dropdown: {
+    backgroundColor: '#009c97',
+    alignItems: 'center',
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#fff',
+  },
   searchButton: {
     backgroundColor: '#009c97',
   },
   searchBar: {
-    height: 40,
+    height: 50,
     margin: 12,
-    borderWidth: 1,
+    borderWidth: 3,
     borderColor: '#009c97',
     padding: 10,
+    backgroundColor: '#fff',
     borderRadius: 10,
     width: 300,
     textAlign: 'right',

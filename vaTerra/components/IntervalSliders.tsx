@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   slidersContainer: { justifyContent: 'center', alignItems: 'center' },
   text: {
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
-    fontSize: 14,
+    fontSize: 17,
     fontWeight: '500',
     letterSpacing: 1.2,
   },
