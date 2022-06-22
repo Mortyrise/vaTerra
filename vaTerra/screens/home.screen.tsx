@@ -12,7 +12,7 @@ function Home() {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    wait(1000).then(() => setRefreshing(false));
   }, []);
   return (
     <SafeAreaView style={styles.container}>
