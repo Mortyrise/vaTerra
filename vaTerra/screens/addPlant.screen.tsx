@@ -11,6 +11,7 @@ import {
   Platform,
   KeyboardAvoidingView,
   DevSettings,
+  SafeAreaView,
 } from 'react-native';
 import { firebase } from '../utils/config';
 import * as ImagePicker from 'expo-image-picker';
@@ -115,88 +116,88 @@ function AddPlant() {
 
   return (
     <KeyboardAvoidingView style={styles.uploadimage} behavior="position">
-      {/* <SafeAreaView> */}
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Add a new plant </Text>
-          <View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Pressable onPress={pickImage} style={styles.imgButton}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontSize: 16,
-                    textAlign: 'center',
-                  }}
-                >
-                  Pick an Image from your gallery
-                </Text>
-              </Pressable>
-            </View>
-            {!plantImgURI ? (
-              <Image
-                style={styles.plantImage}
-                source={require('../assets/plant.gif')}
-              />
-            ) : (
-              plantImgURI && (
-                <Image
-                  source={{ uri: plantImgURI.uri }}
-                  style={styles.plantImage}
-                />
-              )
-            )}
-          </View>
-          <TextInput
-            placeholder="Add your new plant nickname"
-            onChangeText={onChangeNickNameText}
-            value={nickNameText}
-            style={styles.input}
-          ></TextInput>
-          <SearchBar setPlantObject={setPlantObject} />
-          <View style={{ width: 280 }}>
-            {plantObject && (
-              <View style={styles.wateringCont}>
-                <Text style={styles.wateringTitle}>Watering advice</Text>
-                <Text style={styles.wateringText}>
-                  💦 {plantObject.watering}
-                </Text>
-              </View>
-            )}
-          </View>
-          <View>
-            <Text style={styles.waterText}>
-              Set the interval of your watering Reminders
-            </Text>
-            <Slider
-              style={{
-                width: 300,
-                height: 40,
-              }}
-              minimumValue={1}
-              maximumValue={15}
-              minimumTrackTintColor={'#009c97'}
-              onValueChange={(value) => {
-                setWaterReminder(Math.floor(value));
-              }}
-              // thumbImage={require('../assets/but.png')}
-              thumbTintColor={'#009c97'}
-            />
-            <Text>{waterReminder}</Text>
-          </View>
-          <Pressable onPress={submitPlant} style={styles.imgButton}>
+      <SafeAreaView>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.container}>
+            <Text style={styles.title}>Add a new plant </Text>
             <View>
-              <Text style={styles.buttonText}>ADD PLANT</Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Pressable onPress={pickImage} style={styles.imgButton}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontSize: 16,
+                      textAlign: 'center',
+                    }}
+                  >
+                    Pick an Image from your gallery
+                  </Text>
+                </Pressable>
+              </View>
+              {!plantImgURI ? (
+                <Image
+                  style={styles.plantImage}
+                  source={require('../assets/plant.gif')}
+                />
+              ) : (
+                plantImgURI && (
+                  <Image
+                    source={{ uri: plantImgURI.uri }}
+                    style={styles.plantImage}
+                  />
+                )
+              )}
             </View>
-          </Pressable>
-        </View>
-      </ScrollView>
-      {/* </SafeAreaView> */}
+            <TextInput
+              placeholder="Add your new plant nickname"
+              onChangeText={onChangeNickNameText}
+              value={nickNameText}
+              style={styles.input}
+            ></TextInput>
+            <SearchBar setPlantObject={setPlantObject} />
+            <View style={{ width: 280 }}>
+              {plantObject && (
+                <View style={styles.wateringCont}>
+                  <Text style={styles.wateringTitle}>Watering advice</Text>
+                  <Text style={styles.wateringText}>
+                    💦 {plantObject.watering}
+                  </Text>
+                </View>
+              )}
+            </View>
+            <View>
+              <Text style={styles.waterText}>
+                Set the interval of your watering Reminders
+              </Text>
+              <Slider
+                style={{
+                  width: 300,
+                  height: 40,
+                }}
+                minimumValue={1}
+                maximumValue={15}
+                minimumTrackTintColor={'#009c97'}
+                onValueChange={(value) => {
+                  setWaterReminder(Math.floor(value));
+                }}
+                // thumbImage={require('../assets/but.png')}
+                thumbTintColor={'#009c97'}
+              />
+              <Text>{waterReminder}</Text>
+            </View>
+            <Pressable onPress={submitPlant} style={styles.imgButton}>
+              <View>
+                <Text style={styles.buttonText}>ADD PLANT</Text>
+              </View>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 }
