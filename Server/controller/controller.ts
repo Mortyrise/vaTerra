@@ -14,6 +14,7 @@ const findBySpecies = async function (req: Request, res: Response) {
 };
 
 const findAllPlants = async function (req: Request, res: Response) {
+  console.log('findAllPlants');
   const allPlants = await Plant.find();
   res.status(200);
   res.send(allPlants);
@@ -84,10 +85,17 @@ const addUser = async function (req: Request, res: Response) {
 
 const removeUser = async function (req: Request, res: Response) {
   try {
-    const userId = req.headers.userid;
-    await User.deleteOne({ userId: userId });
+    const userId = req.params.id;
+    const deletedUser = await User.deleteOne({ userId: userId });
+
+    if (deletedUser.deletedCount === 0) {
+      res.status(404);
+      return res.send('User not found');
+    }
+
+    console.log('deletedUser:', deletedUser);
     res.status(204);
-    res.send('User deleted');
+    res.send(`User ${userId} deleted`);
   } catch (error) {
     console.log(error);
   }
