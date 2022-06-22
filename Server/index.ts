@@ -13,7 +13,7 @@ const app = Express();
 app.use(morgan('dev'));
 app.use(cors()).use(Express.json());
 
-cron.schedule('*/5 * * * *', () => {
+cron.schedule('* * * * *', () => {
   pushNotificationAndUpdateWaterInterval();
 });
 
