@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import React from 'react';
 import HomeScreen from './screens/home.screen';
 import AddPlant from './screens/addPlant.screen';
@@ -63,7 +63,10 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator
           labeled={false}
-          barStyle={{ backgroundColor: '#009c97', height: 80 }}
+          barStyle={{
+            backgroundColor: '#009c97',
+            height: Platform.OS === 'ios' ? 80 : 50,
+          }}
           activeColor="white"
         >
           <>
