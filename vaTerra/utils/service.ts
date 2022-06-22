@@ -1,7 +1,9 @@
 //Need to be something like this: 'https://e756-45-130-134-153.eu.ngrok.io/';
 //'ngrok.exe http 3111'
 
-const baseUrl = 'https://34c0-62-182-99-225.ngrok.io/';
+import { REACT_APP_SERVER_TUNNEL } from '@env';
+
+const baseUrl = REACT_APP_SERVER_TUNNEL;
 
 import Plant from '../Types/Plants';
 import User from '../Types/User';
