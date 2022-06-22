@@ -18,7 +18,7 @@ router.put('/user/plant/interval', controller_1.default.updateReminder);
 router.delete('user/plant/delete/:id', controller_1.default.removePlantByUser);
 router.delete('user/:id', controller_1.default.removeUser);
 router.get('/', (req, res) => {
-  res.send('Hello Andres!');
+  res.send('Hello Andres, awesome frontend!');
   console.log('server got request');
 });
 exports.default = router;
