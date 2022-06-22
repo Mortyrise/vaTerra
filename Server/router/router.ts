@@ -14,7 +14,7 @@ router.delete('user/plant/delete/:id', controller.removePlantByUser);
 router.delete('user/:id', controller.removeUser);
 
 router.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello World Andres!');
   console.log('server got request');
 });
 
