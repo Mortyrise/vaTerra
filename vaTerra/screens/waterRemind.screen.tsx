@@ -1,16 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform, ScrollView } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  RefreshControl,
+  Platform,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import IntervalSliders from '../components/IntervalSliders';
 import { getUser } from '../utils/service';
 
+const wait = (timeout: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
 function WaterRemind() {
   const [plants, setPlants] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const getData = async () => {
     try {
       const data = await getUser(1);
-      // console.log('getData', data);
-      //could be undefined if no plants
       if (data.plants) {
         setPlants(data.plants);
       }
@@ -21,24 +37,29 @@ function WaterRemind() {
 
   useEffect(() => {
     getData();
-    // console.log('fetching data');
-  }, []);
+  }, [refreshing]);
   return (
-    <ScrollView>
-      <View style={styles.slidersContainer}>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={styles.text}>Watering Reminders</Text>
+    <SafeAreaView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <View style={styles.slidersContainer}>
+          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={styles.text}>Watering Reminders</Text>
+          </View>
+          <View style={{ marginTop: 40 }}>
+            {plants.map((plant, index, user) => (
+              <View key={index}>
+                <Text style={styles.text}> {plant.latin}</Text>
+                <IntervalSliders plant={plant} user={user} />
+              </View>
+            ))}
+          </View>
         </View>
-        <View style={{ marginTop: 40 }}>
-          {plants.map((plant, index, user) => (
-            <View key={index}>
-              <Text style={styles.text}> {plant.latin}</Text>
-              <IntervalSliders plant={plant} user={user} />
-            </View>
-          ))}
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({

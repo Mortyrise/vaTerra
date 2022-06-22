@@ -9,6 +9,7 @@ const PlantSearchBar = ({ setPlantObject }) => {
   const [filteredPlants, setFilteredPlants] = useState([]);
   const [allPlants, setAllPlants] = useState(null);
   const [selectedPlant, setSelectedPlant] = useState(null);
+  const [plantName, setPlantName] = useState('');
 
   const data = async () => {
     try {
@@ -31,7 +32,6 @@ const PlantSearchBar = ({ setPlantObject }) => {
           : ''.toLowerCase();
         return itemData.indexOf(textInput.toLowerCase()) > -1;
       });
-      // console.log('filteredData', newData);
       setFilteredPlants(newData);
       setSearch(textInput);
     } else {
@@ -43,21 +43,22 @@ const PlantSearchBar = ({ setPlantObject }) => {
   return (
     <View style={styles.searchBarContainer}>
       {!allPlants ? (
-        <Text>Loading...</Text>
+        <Text>Loading Plant Database...</Text>
       ) : (
         <View>
-          <TextInput
+          {/* <TextInput
             style={styles.searchBar}
             onChangeText={(text) => searchFilterFunction(text)}
-            placeholder="Search plant by it's common name"
-            value={search}
-          />
+            placeholder="Search plant by it's name"
+            value={plantName}
+          /> */}
           <View style={styles.dropdownCont}>
             <SelectDropdown
               buttonStyle={styles.dropdown}
               data={filteredPlants}
               onSelect={(selectedItem) => {
                 setPlantObject(selectedItem);
+                setPlantName(selectedItem);
               }}
               defaultButtonText={`Select plant (${
                 filteredPlants ? filteredPlants.length : ''
@@ -70,20 +71,33 @@ const PlantSearchBar = ({ setPlantObject }) => {
               rowTextForSelection={(item) => {
                 return item.common[0];
               }}
-              // dropdownBackgroundColor="#009c97"
-              // style={styles.searchButton}
             />
           </View>
           {selectedPlant && (
-            <View style={{ marginTop: 10 }}>
+            <View style={styles.newPlantCont}>
+              <Text style={styles.plantTextTitle}>Welcome to the family!</Text>
               <Text style={styles.plantText}>
-                Plant selected: {selectedPlant.common[0]}
+                Your new Plant is a:{' '}
+                <Text style={styles.underline}>{selectedPlant.common[0]}</Text>
               </Text>
               <Text style={styles.plantText}>
-                Family: {selectedPlant.family}
+                ☀️ It's ideal Lighting is :{' '}
+                <Text style={styles.underline}>{selectedPlant.ideallight}</Text>
               </Text>
               <Text style={styles.plantText}>
-                Latin name: {selectedPlant.latin}
+                🌱 It Belongs to the{' '}
+                <Text style={styles.underline}>{selectedPlant.category}</Text>{' '}
+                family
+              </Text>
+              <Text style={styles.plantText}>
+                🌡 It's happiest when the temperature is between{' '}
+                <Text style={styles.underline}>
+                  {selectedPlant.tempmax.celsius}°C
+                </Text>{' '}
+                and{' '}
+                <Text style={styles.underline}>
+                  {selectedPlant.tempmin.celsius}°C
+                </Text>
               </Text>
             </View>
           )}
@@ -96,25 +110,48 @@ const PlantSearchBar = ({ setPlantObject }) => {
 export default PlantSearchBar;
 
 const styles = StyleSheet.create({
-  plantText: {
+  plantTextTitle: {
     marginTop: 10,
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
-    fontSize: 15,
+    fontSize: 20,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+  },
+  plantText: {
+    marginTop: 17,
+    fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
+    fontSize: 18,
+    fontWeight: 'normal',
+  },
+  underline: {
+    textDecorationLine: 'underline',
+    textDecorationColor: '#009c97',
   },
   dropdownCont: {
     alignItems: 'center',
+    borderRadius: 10,
   },
   dropdown: {
     backgroundColor: '#009c97',
     alignItems: 'center',
     marginBottom: 10,
     marginTop: 10,
+    borderRadius: 10,
   },
   buttonText: {
     color: '#fff',
   },
   searchButton: {
     backgroundColor: '#009c97',
+  },
+  newPlantCont: {
+    margin: 10,
+    alignItems: 'flex-start',
+    borderColor: '#009c97',
+    backgroundColor: '#fff',
+    borderWidth: 3,
+    borderRadius: 10,
+    padding: 10,
   },
   searchBar: {
     height: 50,

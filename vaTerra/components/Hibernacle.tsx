@@ -31,7 +31,9 @@ const Hibernacle = ({ refreshing }) => {
           <Text style={styles.text}>HIBERNACLE</Text>
         </View>
         <View>
-          <Text style={styles.text}>{user ? user.userEmail : ''}</Text>
+          <Text style={styles.text}>
+            Hello {user ? user.userName : 'Guest'}!
+          </Text>
         </View>
         <View style={styles.hibernacleWrapper}>
           {plants.map((element, index) => (
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     color: '#009c97',
-    letterSpacing: 8,
+    letterSpacing: 5,
   },
   hibernacleContainer: {
     flex: 1,

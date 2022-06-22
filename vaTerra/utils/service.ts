@@ -1,9 +1,9 @@
 //Need to be something like this: 'https://e756-45-130-134-153.eu.ngrok.io/';
-//'ngrok.exe http 3111'
+//'ngrok http 3111'
 
 import { REACT_APP_SERVER_TUNNEL } from '@env';
 
-const baseUrl = REACT_APP_SERVER_TUNNEL;
+const baseUrl = `https://vaterra.herokuapp.com/`;
 
 import Plant from '../Types/Plants';
 import User from '../Types/User';

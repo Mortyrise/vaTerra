@@ -10,6 +10,7 @@ import {
   Alert,
   Platform,
   KeyboardAvoidingView,
+  DevSettings,
 } from 'react-native';
 import { firebase } from '../utils/config';
 import * as ImagePicker from 'expo-image-picker';
@@ -27,6 +28,11 @@ function AddPlant() {
   const [plantObject, setPlantObject] = useState(null);
   const [waterReminder, setWaterReminder] = useState(5);
   const [selectedImage, setSelectedImage] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const doYourTask = () => {
+    setIsDisabled(true);
+  };
 
   const submitPlant = async () => {
     if (!plantImgURI) {
@@ -53,8 +59,10 @@ function AddPlant() {
         setPlantObject(null);
         setWaterReminder(null);
         setSelectedImage(false);
+        // setTimeout((DevSettings.reload(), 3000));
       }
     }
+    DevSettings.reload();
   };
 
   const hasMediaLibraryPermissionGranted = async () => {
@@ -108,7 +116,7 @@ function AddPlant() {
   return (
     <KeyboardAvoidingView style={styles.uploadimage} behavior="position">
       {/* <SafeAreaView> */}
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <Text style={styles.title}>Add a new plant </Text>
           <View>
@@ -153,7 +161,12 @@ function AddPlant() {
           <SearchBar setPlantObject={setPlantObject} />
           <View style={{ width: 280 }}>
             {plantObject && (
-              <Text>Watering advice: {plantObject.watering}</Text>
+              <View style={styles.wateringCont}>
+                <Text style={styles.wateringTitle}>Watering advice</Text>
+                <Text style={styles.wateringText}>
+                  💦 {plantObject.watering}
+                </Text>
+              </View>
             )}
           </View>
           <View>
@@ -206,9 +219,31 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  wateringCont: {
+    margin: 10,
+    alignItems: 'flex-start',
+    borderColor: '#009c97',
+    backgroundColor: '#fff',
+    borderWidth: 3,
+    borderRadius: 10,
+    padding: 10,
+  },
+  wateringTitle: {
+    marginTop: 10,
+    fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
+    fontSize: 20,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+  },
+  wateringText: {
+    marginTop: 15,
+    fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
+    fontSize: 18,
+    fontWeight: 'normal',
+  },
   title: {
     marginTop: 50,
-    fontSize: 22,
+    fontSize: 25,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     color: '#009c97',
@@ -223,6 +258,10 @@ const styles = StyleSheet.create({
   },
   waterText: {
     fontSize: 17,
+    textDecorationLine: 'underline',
+    textDecorationColor: '#009c97',
+    marginTop: 20,
+    marginBottom: 20,
   },
   input: {
     width: 300,
@@ -243,7 +282,7 @@ const styles = StyleSheet.create({
     padding: 5,
     marginTop: 10,
     borderRadius: 60,
-    resizeMode: 'center',
+    resizeMode: 'cover',
     alignSelf: 'center',
   },
   buttonText: {
