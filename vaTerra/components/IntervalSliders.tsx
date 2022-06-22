@@ -41,7 +41,9 @@ const IntervalSliders = ({ plant, user }) => {
           value={plant.wateringReminderInterval}
         />
         <Text>
-          {waterInterval ? waterInterval : plant.wateringReminderInterval}
+          {waterInterval
+            ? waterInterval
+            : ` Water once every ${plant.wateringReminderInterval} days`}
         </Text>
       </View>
     </View>

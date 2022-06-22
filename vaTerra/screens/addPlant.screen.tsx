@@ -12,6 +12,7 @@ import {
   KeyboardAvoidingView,
   DevSettings,
   SafeAreaView,
+  ActivityIndicator,
 } from 'react-native';
 import { firebase } from '../utils/config';
 import * as ImagePicker from 'expo-image-picker';
@@ -29,13 +30,10 @@ function AddPlant() {
   const [plantObject, setPlantObject] = useState(null);
   const [waterReminder, setWaterReminder] = useState(5);
   const [selectedImage, setSelectedImage] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
-
-  const disableButton = () => {
-    setIsDisabled(true);
-  };
+  const [submit, setSubmit] = useState(false);
 
   const submitPlant = async () => {
+    setSubmit(true);
     if (!plantImgURI) {
       Alert.alert(
         'please upload an Image before adding the plant to your hibernacle :)'
@@ -53,7 +51,6 @@ function AddPlant() {
           wateringReminderInterval: waterReminder,
           nextReminderDate: addDaystoDate(waterReminder),
         };
-        disableButton();
         addPlantToUser(plantSchema);
         console.log('PLANT SHCEMA', plantSchema);
         Alert.alert('Your plant has been added to your hibernacle :)');
@@ -61,10 +58,10 @@ function AddPlant() {
         setPlantObject(null);
         setWaterReminder(null);
         setSelectedImage(false);
-        // setTimeout((DevSettings.reload(), 3000));
+        setSubmit(false);
       }
     }
-    DevSettings.reload();
+    setTimeout(() => DevSettings.reload(), 2000);
   };
 
   const hasMediaLibraryPermissionGranted = async () => {
@@ -191,15 +188,15 @@ function AddPlant() {
               />
               <Text>{waterReminder}</Text>
             </View>
-            <Pressable
-              disabled={isDisabled}
-              onPress={submitPlant}
-              style={styles.imgButton}
-            >
-              <View>
-                <Text style={styles.buttonText}>ADD PLANT</Text>
-              </View>
-            </Pressable>
+            {!submit ? (
+              <Pressable onPress={submitPlant} style={styles.imgButton}>
+                <View>
+                  <Text style={styles.buttonText}>ADD PLANT</Text>
+                </View>
+              </Pressable>
+            ) : (
+              <ActivityIndicator size="large" color="#009c97" />
+            )}
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -248,7 +245,7 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   title: {
-    marginTop: 50,
+    marginTop: 10,
     fontSize: 25,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',

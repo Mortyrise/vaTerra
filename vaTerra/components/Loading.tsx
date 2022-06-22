@@ -1,10 +1,16 @@
-import { View, Text } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import React from 'react';
 
 export default function Loading() {
   return (
-    <View>
-      <Text>loading</Text>
+    <View style={styles.container}>
+      <ActivityIndicator size="large" color="#009c97" />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
