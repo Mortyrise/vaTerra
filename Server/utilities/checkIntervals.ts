@@ -33,7 +33,7 @@ const pushNotificationAndUpdateWaterInterval = async () => {
           //add the interval again to the old one
         } else {
           console.log(
-            `${plant.id ? plant.id : user.userName} has no reminders yet`
+            `${plant.nickName ? plant.id : plant.nickName} has no reminders yet`
           );
         }
       }
