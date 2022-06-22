@@ -2,14 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
-    "test": "jest --forceExit",
-    "test-js": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test-dev": "jest --watchAll",
-    "start-dev": "nodemon index",
-    "start": "npx ts-node src/index",
-    "build": "tsc"
+    "start": "node index"
   },
   "author": "",
   "license": "ISC",
