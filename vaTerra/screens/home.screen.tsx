@@ -1,5 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { View, ScrollView, RefreshControl, SafeAreaView } from 'react-native';
+import {
+  View,
+  ScrollView,
+  RefreshControl,
+  SafeAreaView,
+  Platform,
+} from 'react-native';
 import Hibernacle from '../components/Hibernacle';
 import { StyleSheet } from 'react-native';
 
@@ -33,5 +39,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    marginTop: Platform.OS === 'android' ? 180 : 0,
   },
 });
