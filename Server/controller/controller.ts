@@ -41,7 +41,39 @@ const findPlantByLatin = async function (req: Request, res: Response) {
 
 const addUser = async function (req: Request, res: Response) {
   try {
-    const userAdded = await User.create(req.body);
+    //Should check on all required fields
+
+    const userToAdd = {
+      //TODO userID is now a number but should be a string
+      userName: req.body.userName,
+      userEmail: req.body.userEmail,
+      userPassword: req.body.userPassword,
+      userId: Math.floor(Math.random() * 1000000),
+    };
+
+    if (
+      !userToAdd.userName ||
+      !userToAdd.userEmail ||
+      !userToAdd.userPassword
+    ) {
+      res.status(400);
+      return res.send(
+        `The following fields are missing: ${
+          !userToAdd.userName ? 'userName' : ''
+        } ${!userToAdd.userEmail ? 'userEmail' : ''} ${
+          !userToAdd.userPassword ? 'userPassword' : ''
+        }`
+      );
+    }
+
+    let userFound = await User.findOne({ userId: userToAdd.userId });
+    while (userFound) {
+      userToAdd.userId = Math.floor(Math.random() * 1000000);
+      userFound = await User.findOne({ userId: userToAdd.userId });
+    }
+
+    const userAdded = await User.create(userToAdd);
+
     res.status(201);
     res.send(userAdded);
   } catch (error) {
@@ -52,7 +84,8 @@ const addUser = async function (req: Request, res: Response) {
 
 const removeUser = async function (req: Request, res: Response) {
   try {
-    await User.findByIdAndDelete(req.body.userId);
+    const userId = req.headers.userid;
+    await User.deleteOne({ userId: userId });
     res.status(204);
     res.send('User deleted');
   } catch (error) {
@@ -89,25 +122,42 @@ const findAllUsers = async function (req: Request, res: Response) {
 
 const addPlantByUser = async function (req: Request, res: Response) {
   try {
-    console.log('addPlantByUser', req.body);
-    const userToUpdate = await User.findOne({ userId: 1 });
-    console.log('userToUpdate', userToUpdate);
+    console.log(req.headers);
+    const userId = req.headers.userid ? req.headers.userid : 1;
+    console.log('addPlantByUser', userId);
+
+    //TODO Add get user by id from req.body.user?
+    let user = await User.findOne({ userId: userId });
+
+    if (!user) {
+      res.status(404);
+      return res.send('User not found');
+    }
 
     const plantToAdd = req.body;
+    //check body for all required fields <- Still missing a lot of fields
+    if (!plantToAdd.common || !plantToAdd.latin) {
+      res.status(400);
+      return res.send(
+        `The following fields are missing: 
+        ${!plantToAdd.common ? 'common' : ''} 
+        ${!plantToAdd.latin ? 'latin' : ''}`
+      );
+    }
+    console.log('addPlantByUser', plantToAdd);
 
-    if (userToUpdate) {
+    if (user) {
       await User.updateOne(
-        { id: userToUpdate.userId },
+        { userId: user.userId },
         {
           $push: {
             plants: plantToAdd,
           },
         }
       );
-      const updatedUser = await User.findOne({ userId: 8 });
-      console.log(updatedUser);
+
       res.status(201);
-      res.send(updatedUser);
+      res.send(user);
     } else {
       res.status(500);
     }
