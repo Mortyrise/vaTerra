@@ -2,8 +2,6 @@ import { View, Text, Image, StyleSheet, Platform } from 'react-native';
 import React from 'react';
 
 const Plant = ({ plant }) => {
-  // console.log('Plant()');
-
   return (
     <View style={styles.plantContainer}>
       <Image

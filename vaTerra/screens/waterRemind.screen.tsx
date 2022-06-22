@@ -43,18 +43,18 @@ function WaterRemind() {
 }
 const styles = StyleSheet.create({
   slidersContainer: {
-    marginTop: 90,
+    marginTop: 40,
     flex: 1,
     // justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   text: {
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 19,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     color: '#009c97',
-    letterSpacing: 6,
+    letterSpacing: 3,
   },
 });
 export default WaterRemind;

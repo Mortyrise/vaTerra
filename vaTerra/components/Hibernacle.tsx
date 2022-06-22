@@ -4,7 +4,7 @@ import Plant from './Plant';
 import { useState } from 'react';
 import { getPlants, getUser } from '../utils/service';
 
-const Hibernacle = () => {
+const Hibernacle = ({ refreshing }) => {
   const [plants, setPlants] = useState([]);
   const [user, setUser] = useState(null);
 
@@ -22,7 +22,7 @@ const Hibernacle = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [refreshing]);
 
   return (
     <ScrollView>
@@ -33,7 +33,6 @@ const Hibernacle = () => {
         <View>
           <Text style={styles.text}>{user ? user.userEmail : ''}</Text>
         </View>
-
         <View style={styles.hibernacleWrapper}>
           {plants.map((element, index) => (
             <Plant plant={element} key={index} />
@@ -48,7 +47,6 @@ export default Hibernacle;
 
 const styles = StyleSheet.create({
   text: {
-    marginTop: 10,
     fontSize: 23,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
@@ -56,7 +54,6 @@ const styles = StyleSheet.create({
     letterSpacing: 8,
   },
   hibernacleContainer: {
-    marginTop: 45,
     flex: 1,
     width: 395,
     justifyContent: 'center',

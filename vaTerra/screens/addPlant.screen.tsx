@@ -17,10 +17,7 @@ import SearchBar from '../components/SearchBar';
 import { addPlantToUser } from '../utils/service';
 import Slider from '@react-native-community/slider';
 import addDaystoDate from '../utils/helperFunctions';
-// import { ImageInfo } from 'expo-image-picker/build/ImagePicker.types';
 import { ImageInfo } from 'expo-image-picker';
-// import plant1 from '../assets/plant.gif';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 function AddPlant() {
   const [nickNameText, onChangeNickNameText] = React.useState('');
@@ -29,9 +26,10 @@ function AddPlant() {
   const [plantUri, setPlantUri] = useState(null);
   const [plantObject, setPlantObject] = useState(null);
   const [waterReminder, setWaterReminder] = useState(5);
+  const [selectedImage, setSelectedImage] = useState(false);
 
-  const submitPlant = () => {
-    if (!plantUri) {
+  const submitPlant = async () => {
+    if (!plantImgURI) {
       Alert.alert(
         'please upload an Image before adding the plant to your hibernacle :)'
       );
@@ -43,16 +41,18 @@ function AddPlant() {
       } else {
         const plantSchema = {
           ...plantObject,
-          imagePath: plantUri,
+          imagePath: await uploadImage(),
           nickName: nickNameText,
           wateringReminderInterval: waterReminder,
           nextReminderDate: addDaystoDate(waterReminder),
         };
         addPlantToUser(plantSchema);
+        console.log('PLANT SHCEMA', plantSchema);
         Alert.alert('Your plant has been added to your hibernacle :)');
         setPlantUri(null);
-        setPlantObject({});
+        setPlantObject(null);
         setWaterReminder(null);
+        setSelectedImage(false);
       }
     }
   };
@@ -77,13 +77,12 @@ function AddPlant() {
       aspect: [3, 4],
       quality: 1,
     });
-    // console.log(result);
     if (!result.cancelled) {
       const { uri } = result as ImageInfo;
       const source = { uri: uri };
-      setPlantImgURI(source);
+      setPlantImgURI(result);
+      setSelectedImage(true);
     }
-    return plantImgURI;
   };
 
   const uploadImage = async () => {
@@ -95,13 +94,14 @@ function AddPlant() {
     );
     try {
       let snapshot = await firebase.storage().ref().child(filename).put(blob);
-      let url = await snapshot.ref.getDownloadURL();
+      let url = snapshot.ref.getDownloadURL();
       setUploading(true);
-      Alert.alert('Your photo has been updated');
       setPlantUri(url);
-      setPlantImgURI(null);
+      return url;
     } catch (error) {
       console.error(error);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -110,7 +110,7 @@ function AddPlant() {
       {/* <SafeAreaView> */}
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.title}>Add a new plant to your hibernacle</Text>
+          <Text style={styles.title}>Add a new plant </Text>
           <View>
             <View
               style={{
@@ -129,20 +129,6 @@ function AddPlant() {
                   Pick an Image from your gallery
                 </Text>
               </Pressable>
-              {
-                //TODO make this look nices -> Upload and add plant in one step
-                <Pressable onPress={uploadImage} style={styles.imgButton}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontSize: 16,
-                      textAlign: 'center',
-                    }}
-                  >
-                    Upload Image
-                  </Text>
-                </Pressable>
-              }
             </View>
             {!plantImgURI ? (
               <Image
@@ -171,18 +157,21 @@ function AddPlant() {
             )}
           </View>
           <View>
-            <Text style={{}}>
-              Depending on your local weather, set the interval of the reminders
-              for this plant
+            <Text style={styles.waterText}>
+              Set the interval of your watering Reminders
             </Text>
             <Slider
-              style={{ width: 300, height: 40 }}
+              style={{
+                width: 300,
+                height: 40,
+              }}
               minimumValue={1}
               maximumValue={15}
               minimumTrackTintColor={'#009c97'}
               onValueChange={(value) => {
                 setWaterReminder(Math.floor(value));
               }}
+              // thumbImage={require('../assets/but.png')}
               thumbTintColor={'#009c97'}
             />
             <Text>{waterReminder}</Text>
@@ -205,8 +194,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#009c97',
     marginTop: 20,
     borderRadius: 5,
-    width: 160,
-    height: 55,
+    width: 260,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 13,
@@ -218,12 +207,13 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
-    marginTop: 70,
-    fontSize: 16,
+    marginTop: 50,
+    fontSize: 22,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     color: '#009c97',
     letterSpacing: 3,
+    textAlign: 'center',
   },
   searchBar: {
     borderRadius: 80,
@@ -231,25 +221,29 @@ const styles = StyleSheet.create({
     width: 280,
     fontSize: 12,
   },
+  waterText: {
+    fontSize: 17,
+  },
   input: {
     width: 300,
-    height: 40,
+    height: 50,
     margin: 12,
-    borderWidth: 1,
+    borderWidth: 3,
     padding: 12,
     borderRadius: 10,
     alignContent: 'center',
     textAlign: 'right',
     borderColor: '#009c97',
-    marginTop: 60,
+    backgroundColor: 'white',
   },
   plantImage: {
-    height: 213,
+    height: 180,
     width: 160,
     borderWidth: 1,
     padding: 5,
     marginTop: 10,
     borderRadius: 60,
+    resizeMode: 'center',
     alignSelf: 'center',
   },
   buttonText: {
