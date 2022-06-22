@@ -71,10 +71,10 @@ describe('API CALLS', () => {
     });
 
     test(`User should be deleted`, async () => {
-      // const response = await supertest.delete('/user').set('userid', userId);
-      // expect(response.status).toBe(201);
+      const response = await supertest.delete(`/user/${userId}`);
+      expect(response.status).toBe(204);
 
-      const response2 = await supertest.delete('/user').set('userid', userId);
+      const response2 = await supertest.delete(`/user/${userId}`);
       expect(response2.status).toBe(404);
     });
   });

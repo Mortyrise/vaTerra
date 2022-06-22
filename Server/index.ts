@@ -23,7 +23,7 @@ cron.schedule('* * * * *', () => {
 
 app.use(router).listen(PORT, () => {
   pushNotificationAndUpdateWaterInterval();
-  console.log(`🚀🚀 Running express server at ${PORT} 🚀🚀 `);
+  console.log(`🚀🚀🚀  Running express server at ${PORT} 🚀🚀 `);
 });
 // };
 

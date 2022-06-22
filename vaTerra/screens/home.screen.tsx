@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    marginTop: Platform.OS === 'android' ? 0 : 0,
+    marginTop: Platform.OS === 'android' ? 180 : 0,
   },
 });
