@@ -22,13 +22,13 @@ const pushNotificationAndUpdateWaterInterval = async () => {
               `Your ${plant.nickName} has beend added, your interval has been set to each ${plant.wateringReminderInterval} days)`
             );
 
-            await fetch('http://localhost:3111/user/plant/reminder', {
-              method: 'PUT',
-              headers: {
-                'content-type': 'application/json',
-              },
-              body: JSON.stringify({ user: user, plant: plant }),
-            });
+            // await fetch('http://localhost:3111/user/plant/reminder', {
+            //   method: 'PUT',
+            //   headers: {
+            //     'content-type': 'application/json',
+            //   },
+            //   body: JSON.stringify({ user: user, plant: plant }),
+            // });
           }
           //add the interval again to the old one
         } else {
