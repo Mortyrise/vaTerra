@@ -10,11 +10,11 @@ router.post('/user', controller.addUser);
 router.put('/user/plant', controller.addPlantByUser);
 router.put('/user/plant/reminder', controller.increaseReminder);
 router.put('/user/plant/interval', controller.updateReminder);
-router.delete('user/plant/delete/:id', controller.removePlantByUser);
-router.delete('user/:id', controller.removeUser);
+router.delete('/user/plant/delete/:id', controller.removePlantByUser);
+router.delete('/user/:id', controller.removeUser);
 
 router.get('/', (req, res) => {
-  res.send('Can we merge without the tests passing?');
+  res.send('Hello Alex!');
   console.log('server got request');
 });
 
