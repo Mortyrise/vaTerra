@@ -9,7 +9,7 @@ dotenv.config();
 
 // const startServer = async function (PORT: number) {
 // if (!PORT) PORT = 3118;
-
+//Running the server
 const PORT = process.env.PORT || 3111;
 
 const app = Express();
