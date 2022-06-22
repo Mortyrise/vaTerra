@@ -22,7 +22,7 @@ const Hibernacle = ({ refreshing }) => {
 
   useEffect(() => {
     getData();
-  }, [refreshing]);
+  }, []);
 
   return (
     <ScrollView>
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     width: 395,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: Platform.OS === 'android' ? 60 : 0,
   },
   hibernacleWrapper: {
     flex: 1,

@@ -37,7 +37,7 @@ function WaterRemind() {
 
   useEffect(() => {
     getData();
-  }, [refreshing]);
+  }, []);
   return (
     <SafeAreaView>
       <ScrollView
