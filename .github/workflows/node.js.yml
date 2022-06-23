@@ -34,3 +34,14 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+
+  Front-end:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./vaTerra
+
+    steps:
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
