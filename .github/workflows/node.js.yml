@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./vaTerra
+        working-directory: vaTerra
 
     steps:
       - run: npm ci
