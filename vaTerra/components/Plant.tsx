@@ -17,6 +17,8 @@ const styles = StyleSheet.create({
     width: 150,
     height: 200,
     borderRadius: 20,
+    borderColor: '#009c97',
+    borderWidth: 3,
   },
   plantContainer: {
     padding: 10,
@@ -29,6 +31,7 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     fontSize: 16,
     letterSpacing: 1.5,
+    fontWeight: '500',
   },
 });
 

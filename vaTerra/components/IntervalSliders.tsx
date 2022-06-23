@@ -20,13 +20,16 @@ const IntervalSliders = ({ plant, user }) => {
   return (
     <View style={styles.container}>
       <View style={styles.plantCont}>
-        <Text style={styles.nickName}> {plant.nickName}</Text>
+        <Text style={styles.nickName}>
+          {' '}
+          {plant.nickName}'s Watering Schedule
+        </Text>
         <Image
           source={{ uri: plant.imagePath }}
           style={styles.plantImage}
         ></Image>
       </View>
-      <Text>Watering Schedule</Text>
+      <Text> Watering Schedule</Text>
       <View style={styles.slidersContainer}>
         <Slider
           style={{ width: 300, height: 40 }}
@@ -68,6 +71,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     letterSpacing: 1.2,
     marginTop: 40,
+    width: '40%',
   },
   plantCont: {
     flexDirection: 'row',
@@ -77,5 +81,7 @@ const styles = StyleSheet.create({
     width: 130,
     height: 130,
     borderRadius: 20,
+    borderColor: '#009c97',
+    borderWidth: 2,
   },
 });

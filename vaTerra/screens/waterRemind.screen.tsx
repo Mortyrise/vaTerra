@@ -7,6 +7,7 @@ import {
   Platform,
   ScrollView,
   SafeAreaView,
+  ImageBackground,
 } from 'react-native';
 import IntervalSliders from '../components/IntervalSliders';
 import { getUser } from '../utils/service';
@@ -40,25 +41,33 @@ function WaterRemind() {
   }, []);
   return (
     <SafeAreaView>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+      <ImageBackground
+        source={require('../assets/backgroundCover.jpeg')}
+        resizeMode="cover"
       >
-        <View style={styles.slidersContainer}>
-          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={styles.text}>Watering Reminders</Text>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <View style={styles.slidersContainer}>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={styles.text}>Watering Reminders</Text>
+            </View>
+            <View style={{ marginTop: 40 }}>
+              {plants.map((plant, index, user) => (
+                <View key={index}>
+                  <Text style={styles.text}>
+                    Plant family:{' '}
+                    <Text style={styles.family}>{plant.latin}</Text>{' '}
+                  </Text>
+                  <IntervalSliders plant={plant} user={user} />
+                </View>
+              ))}
+            </View>
           </View>
-          <View style={{ marginTop: 40 }}>
-            {plants.map((plant, index, user) => (
-              <View key={index}>
-                <Text style={styles.text}> {plant.latin}</Text>
-                <IntervalSliders plant={plant} user={user} />
-              </View>
-            ))}
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
@@ -71,11 +80,16 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 10,
-    fontSize: 19,
+    fontSize: 17,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     color: '#009c97',
-    letterSpacing: 3,
+    letterSpacing: 1.2,
+    marginLeft: 15,
+  },
+  family: {
+    fontSize: 14,
+    color: 'black',
   },
 });
 export default WaterRemind;
