@@ -10,7 +10,7 @@ exports[`The Loading screen has not changed 1`] = `
 >
   <ActivityIndicator
     color="#009c97"
-    size="large"
+    size="small"
   />
 </View>
 `;
