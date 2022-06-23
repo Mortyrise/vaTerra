@@ -11,12 +11,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Notifications from 'expo-notifications';
 import { useEffect, useState } from 'react';
-
 import { getUser } from './utils/service';
-// import { LogBox } from 'react-native';
+import { LogBox } from 'react-native';
 
 const Tab = createMaterialBottomTabNavigator();
-// console.disableYellowBox = true;1
+LogBox.ignoreAllLogs();
 
 // const registerForPushNotificationsAsync = async function () {
 //   let token;

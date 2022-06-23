@@ -49,11 +49,12 @@ export default Hibernacle;
 
 const styles = StyleSheet.create({
   text: {
+    marginTop: Platform.OS === 'ios' ? 10 : 0,
     fontSize: 23,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'AppleSDGothicNeo-Thin' : 'Roboto',
     color: '#009c97',
-    letterSpacing: 5,
+    letterSpacing: 3,
   },
   hibernacleContainer: {
     flex: 1,

@@ -5,6 +5,7 @@ import {
   RefreshControl,
   SafeAreaView,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import Hibernacle from '../components/Hibernacle';
 import { StyleSheet } from 'react-native';
@@ -22,13 +23,18 @@ function Home() {
   }, []);
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+      <ImageBackground
+        source={require('../assets/backgroundCover.jpeg')}
+        resizeMode="cover"
       >
-        <Hibernacle refreshing={refreshing} />
-      </ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <Hibernacle refreshing={refreshing} />
+        </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
