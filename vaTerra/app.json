@@ -26,7 +26,7 @@
     "icon": "./assets/96Icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/vaTerra.png",
+      "image": "./assets/vaGIF.gif",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
