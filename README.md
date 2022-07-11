@@ -22,6 +22,7 @@ You can see how it works int he folllowing <a href="https://www.youtube.com/watc
 
 
 <div align='center'>
-<img src='[https://i.ibb.co/6DxLHCp/image.png](https://i.ibb.co/w6qnFG6/image.png)'/>
+<img src='https://i.ibb.co/w6qnFG6/image.png'/>
 </div>
 
+https://i.ibb.co/w6qnFG6/image.png
