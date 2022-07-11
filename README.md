@@ -19,3 +19,8 @@ You can see how it works int he folllowing <a href="https://www.youtube.com/watc
 <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/mongodb-colored.svg" width="36" height="36" alt="MongoDB" /></a>
 <a href="https://www.heroku.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/heroku-colored.svg" width="36" height="36" alt="Heroku" /></a>
 <a href="[https://www.heroku.com/](https://jestjs.io/)" target="_blank" rel="noreferrer"><img src="https://ih1.redbubble.net/image.404020079.1876/st,small,507x507-pad,600x600,f8f8f8.u7.jpg" width="36" height="36" alt="Heroku" /></a>
+
+
+<div align='center'>
+<img src='https://ibb.co/DwyT926'/>
+</div>
