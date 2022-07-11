@@ -25,4 +25,4 @@ You can see how it works int he folllowing <a href="https://www.youtube.com/watc
 <img src='https://i.ibb.co/w6qnFG6/image.png'/>
 </div>
 
-https://i.ibb.co/w6qnFG6/image.png
+
